@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="book-grid">
+  <app-book-card
+    *ngFor="let b of books"
+    [book]="b">
+  </app-book-card>
+</div>
+

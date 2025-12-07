@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a class="navbar-brand" href="/home">Bookstore</a>
+    <div class="navbar-actions">
+      <button *ngIf="isLoggedIn && currentUser?.type == 0" class="navbar-button" routerLink="/bookForm">Add book</button>
+      <button *ngIf="isLoggedIn && currentUser?.type == 2" class="navbar-button" routerLink="/readerProfile">Profile</button>
+      <button *ngIf="!isLoggedIn" class="navbar-button" routerLink="/login">Login</button>
+      <button *ngIf="isLoggedIn" class="navbar-button" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>

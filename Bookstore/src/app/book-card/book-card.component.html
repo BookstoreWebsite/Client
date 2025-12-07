@@ -1,0 +1,17 @@
+<div class="card">
+  <img [src]="book.imageUrl" [alt]="book.title" />
+
+  <h3>{{ book.title }}</h3>
+  <p class="author">{{ book.author }}</p>
+
+  <div class="rating">
+  <ng-container *ngFor="let s of starStates">
+    <span class="star"
+          [ngClass]="s">
+      ★
+    </span>
+  </ng-container>
+
+  <span class="rating-number">{{ book.rating || 0 }}/5</span>
+</div>
+</div>

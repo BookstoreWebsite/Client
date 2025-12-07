@@ -1,0 +1,33 @@
+<div class="profile-card" *ngIf="user">
+  
+  <img
+    class="profile-image"
+    [src]="profileImage"
+    alt="Profile image"
+  />
+
+  <h2 class="username">@{{ user.username }}</h2>
+
+  <p class="full-name">
+    {{ user.firstName }} {{ user.lastName }}
+  </p>
+
+  <div class="follow-stats">
+    <span class="stat">
+      <span class="stat-number">{{ followersCount }}</span>
+      <span class="stat-label">Followers</span>
+    </span>
+
+    <span class="separator">|</span>
+
+    <span class="stat">
+      <span class="stat-number">{{ followingCount }}</span>
+      <span class="stat-label">Following</span>
+    </span>
+  </div>
+  
+  <p class="bio" *ngIf="user.readerBio">
+    {{ user.readerBio }}
+  </p>
+
+</div>

@@ -21,8 +21,7 @@ export class AuthService {
     if(userId) {
       this.getById(userId).subscribe(
         (user: User) => {
-          this.currentUserSubject.next(user);
-        },
+          this.currentUserSubject.next(user);        },
         (error) => {
           console.error('Error fetching user', error);
         }
@@ -43,7 +42,7 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
-  getById(id: number) : Observable<User> {
+  getById(id: string) : Observable<User> {
     return this.http.get<User>( `${environment.apiUrl}/user/${id}`);
   }
 

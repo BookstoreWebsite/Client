@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './layout/navbar/navbar/navbar.component';
+import { BookCardComponent } from './book-card/book-card.component';
+import { BookFormComponent } from './book-form/book-form.component';
+import { ReaderProfileComponent } from './reader-profile/reader-profile.component';
+
 
 
 @NgModule({
@@ -15,13 +20,18 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    BookCardComponent,
+    BookFormComponent,
+    ReaderProfileComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

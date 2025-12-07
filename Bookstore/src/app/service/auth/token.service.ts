@@ -7,22 +7,22 @@ import { ACCESS_TOKEN, USER } from 'src/app/constants';
 export class TokenStorageService {
   constructor() {}
 
-  saveToken(token: string, userId: number): void {
+  saveToken(token: string, userId: string): void {
 
     sessionStorage.removeItem(ACCESS_TOKEN);
     sessionStorage.removeItem(USER);
     
     sessionStorage.setItem(ACCESS_TOKEN, token);
-    sessionStorage.setItem(USER, userId.toString());
+    sessionStorage.setItem(USER, userId);
   }
 
   getToken(): string | null {
     return sessionStorage.getItem(ACCESS_TOKEN);
   }
 
-  getUserId(): number {
+  getUserId(): string {
     const userIdString = sessionStorage.getItem(USER);
-    return userIdString ? parseInt(userIdString, 10) : 0;
+    return userIdString ? userIdString : '0';
   }
 
   clear(): void {

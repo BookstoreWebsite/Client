@@ -1,9 +1,14 @@
 export interface User {
-    id: number, 
+    id: string,
+    username: string, 
     firstName: string,
     lastName: string, 
     email: string,
     hashedPassword: string,
     phoneNumber: string,
-    userType: number, 
+    type: number,
+    profilePictureUrl: string,
+    readerBio: string,
+    followers: User[] | null,
+    following: User[] | null
 }

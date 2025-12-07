@@ -1,0 +1,76 @@
+.profile-card {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e0e0e0;
+  margin-bottom: 12px;
+}
+
+.username {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.full-name {
+  margin: 6px 0 0;
+  font-size: 18px;
+  color: #555;
+}
+
+.bio {
+  margin-top: 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.follow-stats {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.separator {
+  font-size: 16px;
+  color: #888;
+}
+
