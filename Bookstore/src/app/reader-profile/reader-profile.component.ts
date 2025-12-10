@@ -31,11 +31,10 @@ export class ReaderProfileComponent implements OnInit{
   }
 
   get followersCount(): number {
-  return this.user?.followersIds?.length ?? 0;
+  return this.user?.followerIds?.length ?? 0;
   }
 
   get followingCount(): number {
-    console.log(this.user)
     return this.user?.followingIds?.length ?? 0;
   }
 

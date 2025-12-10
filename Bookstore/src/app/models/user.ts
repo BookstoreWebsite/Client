@@ -9,6 +9,6 @@ export interface User {
     type: number,
     profilePictureUrl: string,
     readerBio: string,
-    followersIds: string[] | null,
+    followerIds: string[] | null,
     followingIds: string[] | null
 }
