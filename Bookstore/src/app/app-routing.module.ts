@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './service/auth/auth.guard';
 import { BookFormComponent } from './book-form/book-form.component';
 import { ReaderProfileComponent } from './reader-profile/reader-profile.component';
+import { SearchReadersComponent } from './search-readers/search-readers.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'bookForm', component: BookFormComponent},
   { path: 'readerProfile', component: ReaderProfileComponent},
+  { path: 'searchReaders', component: SearchReadersComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

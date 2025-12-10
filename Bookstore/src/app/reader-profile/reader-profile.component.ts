@@ -31,13 +31,14 @@ export class ReaderProfileComponent implements OnInit{
   }
 
   get followersCount(): number {
-  return this.user?.followers?.length ?? 0;
+  return this.user?.followersIds?.length ?? 0;
   }
 
   get followingCount(): number {
-    return this.user?.following?.length ?? 0;
+    console.log(this.user)
+    return this.user?.followingIds?.length ?? 0;
   }
-  
+
   get profileImage(): string {
     return this.user?.profilePictureUrl || this.defaultProfilePicture;
   }

@@ -1,0 +1,62 @@
+<div class="user-search-container">
+  <form (ngSubmit)="onSearch()" class="search-form">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      name="searchTerm"
+      class="search-input"
+      placeholder="Username, first name or last name"
+      required
+    />
+    <button
+      type="submit"
+      class="search-button"
+      [disabled]="!searchTerm.trim() || isLoading" >
+      Search
+    </button>
+  </form>
+
+  <div *ngIf="isLoading" class="info-text">
+    Searching...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-text">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && users.length > 0" class="results-list">
+    <div class="user-card" *ngFor="let user of users">
+      <div class="user-main">
+
+        <img
+          class="user-avatar"
+          [src]="user.profilePictureUrl || defaultAvatar"
+          alt="Profile image"
+        />
+
+        <div class="user-text">
+          <div class="user-name-line">
+            <span class="username">@{{ user.username }}</span>
+          </div>
+          <div class="full-name">
+            {{ user.firstName }} {{ user.lastName }}
+          </div>
+        </div>
+      </div>
+        <button
+        class="follow-btn"
+        *ngIf="canFollow(user)"
+        (click)="onFollow(user)"
+        >
+        Follow
+        </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="hasSearched && !isLoading && !errorMessage && users.length === 0"
+    class="info-text"
+  >
+    No users for this query.
+  </div>
+</div>

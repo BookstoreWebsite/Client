@@ -12,6 +12,7 @@ import { NavbarComponent } from './layout/navbar/navbar/navbar.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { BookFormComponent } from './book-form/book-form.component';
 import { ReaderProfileComponent } from './reader-profile/reader-profile.component';
+import { SearchReadersComponent } from './search-readers/search-readers.component';
 
 
 
@@ -24,7 +25,8 @@ import { ReaderProfileComponent } from './reader-profile/reader-profile.componen
     NavbarComponent,
     BookCardComponent,
     BookFormComponent,
-    ReaderProfileComponent
+    ReaderProfileComponent,
+    SearchReadersComponent
   ],
   imports: [
     BrowserModule,
