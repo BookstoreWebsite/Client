@@ -12,8 +12,6 @@ import { User } from '../models/user';
 export class HomeComponent implements OnInit{
 
   books: Book[] | undefined;
-  currentUser: User | null = null;
-
   constructor(private bookService: BookService){}
 
   ngOnInit(){

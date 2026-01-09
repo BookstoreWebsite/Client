@@ -90,3 +90,11 @@
   background-color: #0066d3;
 }
 
+.stat.clickable {
+  cursor: pointer;
+}
+
+.stat.clickable:hover .stat-label {
+  text-decoration: underline;
+}
+

@@ -46,27 +46,6 @@ export class AuthService {
     return this.http.get<User>( `${environment.apiUrl}/user/${id}`);
   }
 
-  isAuthenticated(): boolean {
-    const token = this.tokenStorage.getToken();
-    if (!token) return false;
-
-    try {
-      const payloadPart = token.split('.')[1];
-      if (!payloadPart) return false;
-
-      const payloadJson = atob(payloadPart);
-      const payload = JSON.parse(payloadJson);
-
-      const exp = payload.exp;
-      if (!exp) return false;
-
-      const now = Math.floor(Date.now() / 1000);
-      return exp > now;
-    } catch (e) {
-      return false;
-    }
-  }
-
   handleLoginResponse(response: any): void {
     console.log(response);
     this.tokenStorage.saveToken(response.accessToken, response.userId);

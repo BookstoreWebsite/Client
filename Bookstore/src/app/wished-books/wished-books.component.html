@@ -1,0 +1,17 @@
+<div class="page">
+  <h2 class="title">Wished books</h2>
+
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage && books.length === 0" class="info">
+    No wished books.
+  </div>
+
+  <div class="list" *ngIf="!isLoading && !errorMessage && books.length > 0">
+    <app-book-list-card
+      *ngFor="let b of books"
+      [book]="b">
+    </app-book-list-card>
+  </div>
+</div>

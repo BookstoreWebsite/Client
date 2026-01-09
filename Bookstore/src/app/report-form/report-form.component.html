@@ -1,0 +1,38 @@
+<div class="report-form">
+  <h2 class="title">Report</h2>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <label class="label">Reason</label>
+  <div class="reasons" role="radiogroup" aria-label="Report reason">
+    <label class="reason" *ngFor="let r of reasons">
+      <input
+        type="radio"
+        name="reason"
+        [value]="r.value"
+        [(ngModel)]="selectedReason" />
+      <span>{{ r.label }}</span>
+    </label>
+  </div>
+
+  <label class="label" for="reportText">Report text</label>
+  <textarea
+    id="reportText"
+    class="textarea"
+    [(ngModel)]="text"
+    rows="5"
+    placeholder="Describe the issue...">
+  </textarea>
+
+  <div class="actions">
+    <button class="secondary-btn" type="button" (click)="cancel()" [disabled]="isSubmitting">
+      Cancel
+    </button>
+
+    <button class="primary-btn" type="button" (click)="submit()" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Submitting...' : 'Submit report' }}
+    </button>
+  </div>
+</div>

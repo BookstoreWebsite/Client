@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 export interface User {
     id: string,
     username: string, 
@@ -10,5 +12,8 @@ export interface User {
     profilePictureUrl: string,
     readerBio: string,
     followerIds: string[] | null,
-    followingIds: string[] | null
+    followingIds: string[] | null,
+    reviews: Review[] | null,
+    wishedBooksCount: number,
+    readBooksCount: number
 }

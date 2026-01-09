@@ -1,0 +1,45 @@
+.genre-form {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.title {
+  margin: 0 0 12px;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.error {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #ffebee;
+  color: #c62828;
+}

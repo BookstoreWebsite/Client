@@ -1,0 +1,70 @@
+<div class="comment-wrapper" [style.marginLeft.px]="level * 24">
+  <div class="comment-card">
+    <div class="header">
+      <img
+        class="avatar"
+        [src]="comment.profilePicture || 'assets/default-avatar.png'"
+        alt="profile picture"
+      />
+
+      <span class="username">{{ comment.username }}</span>
+    </div>
+
+    <div class="text">
+      {{ comment.text }}
+    </div>
+
+    <div class="actions">
+      <button
+        class="secondary-btn reply-btn"
+        type="button"
+        (click)="toggleReplyForm()">
+        Reply
+      </button>
+
+      <button
+        class="secondary-btn"
+        type="button"
+        (click)="reportComment()">
+        Report
+      </button>
+
+      <a
+        *ngIf="comment.hasReplies"
+        class="view-replies"
+        (click)="toggleReplies()">
+        {{ repliesVisible ? 'Hide comments' : 'View comments' }}
+      </a>
+    </div>
+    
+    <div *ngIf="showReplyForm" class="reply-form">
+      <textarea
+        [(ngModel)]="replyText"
+        rows="3"
+        placeholder="Write a reply...">
+      </textarea>
+
+      <div class="reply-actions">
+        <button class="primary-btn" type="button" (click)="submitReply()">
+          Submit
+        </button>
+        <button class="secondary-btn" type="button" (click)="cancelReply()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="loadingReplies" class="loading">
+      Loading...
+    </div>
+  </div>
+
+  <div *ngIf="repliesVisible" class="replies">
+    <app-comment
+      *ngFor="let child of (comment.comments ?? [])"
+      [comment]="child"
+      [level]="level + 1"
+      (reply)="reply.emit($event)">
+    </app-comment>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="all-reviews">
+  <h2 class="title">All Reviews</h2>
+
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="allReviews.length === 0" class="info">
+      No reviews yet.
+    </div>
+
+    <div class="review-list" *ngIf="allReviews.length > 0">
+      <div class="review" *ngFor="let r of visibleReviews; trackBy: trackByReviewId">
+        <div class="review-head">
+          <div class="review-title">{{ r.title }}</div>
+          <div class="review-rating">★ {{ r.rating }}/5</div>
+        </div>
+        <div class="review-text">{{ r.text }}</div>
+        <button class="secondary-btn reply-btn" type="button" (click)="toggleReply(r.id)">
+        Reply
+        </button>
+        <div class="reply-form" *ngIf="isReplyOpen(r.id)">
+        <textarea
+            class="reply-textarea"
+            [(ngModel)]="replyDrafts[r.id]"
+            rows="3"
+            placeholder="Write a reply..."></textarea>
+        <div class="reply-actions">
+            <button class="primary-btn" type="button" (click)="submitReply(r.id)">
+            Submit
+            </button>
+            <button class="secondary-btn" type="button" (click)="cancelReply(r.id)">
+            Cancel
+            </button>
+        </div>
+        </div>
+        <a class="view-comments"
+            href="#"
+            (click)="toggleComments(r); $event.preventDefault()">
+            {{ r.commentsExpanded ? 'Hide comments' : 'View comments' }}
+        </a>
+        <div class="comments-section" *ngIf="r.commentsExpanded">
+            <div *ngIf="r.commentsLoading" class="comments-info">
+                Loading comments...
+            </div>
+            <div *ngIf="!r.commentsLoading && (r.comments?.length ?? 0) === 0" class="comments-info">
+                No comments yet.
+            </div>
+            <app-comment
+                *ngFor="let c of r.comments"
+                [comment]="c">
+            </app-comment>
+        </div>
+      </div>
+    </div>
+
+    <div class="pager" *ngIf="allReviews.length > 0">
+      <button class="pager-btn" (click)="prevPage()" [disabled]="!canPrev" title="Previous">
+        ←
+      </button>
+
+      <div class="pager-info">
+        Page {{ pageIndex + 1 }} / {{ totalPages }}
+        </div>
+
+
+      <button class="pager-btn" (click)="nextPage()" [disabled]="!canNext" title="Next">
+        →
+      </button>
+    </div>
+  </ng-container>
+</div>

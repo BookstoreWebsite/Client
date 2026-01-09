@@ -6,7 +6,7 @@
       type="text" 
       class="form-control"
       name="title" 
-      [(ngModel)]="book.title" 
+      [(ngModel)]="book.name" 
       required>
   </div>
 
@@ -39,6 +39,32 @@
       [(ngModel)]="book.author"
       required>
   </div>
+
+  <div class="genre-select-container">
+  <label>Genres</label>
+  <select
+    multiple
+    [(ngModel)]="selectedGenreIds"
+    name="genreIds"
+    size="5"
+    class="genre-select">
+    <option *ngFor="let g of genres" [ngValue]="g.id">
+      {{ g.name }}
+    </option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label>Price</label>
+  <input 
+    type="number"
+    class="form-control"
+    name="price"
+    [(ngModel)]="book.price"
+    required
+    min="0"
+    step="0.01">
+</div>
 
   <button 
     type="submit" 

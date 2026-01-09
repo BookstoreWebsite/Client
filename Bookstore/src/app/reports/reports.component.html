@@ -1,0 +1,34 @@
+<div class="reports-page">
+  <h2 class="title">Reports</h2>
+
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage && reports.length === 0" class="info">
+    No reports found.
+  </div>
+
+  <div class="report-list" *ngIf="!isLoading && !errorMessage && reports.length > 0">
+    <div class="report-card" *ngFor="let r of reports">
+      <div class="row">
+        <div class="label">Reason:</div>
+        <div class="value">{{ reasonLabel(r.reason) }}</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Target:</div>
+        <div class="value">
+          {{ targetLabel(r) }} —
+          <span class="mono">{{ targetId(r) }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="label">Text:</div>
+      </div>
+      <div class="text">
+        {{ r.text }}
+      </div>
+    </div>
+  </div>
+</div>

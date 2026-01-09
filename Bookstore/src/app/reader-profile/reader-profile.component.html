@@ -13,18 +13,37 @@
   </p>
 
   <div class="follow-stats">
-    <span class="stat">
-      <span class="stat-number">{{ followersCount }}</span>
-      <span class="stat-label">Followers</span>
-    </span>
+  <span class="stat">
+    <span class="stat-number">{{ followersCount }}</span>
+    <span class="stat-label">Followers</span>
+  </span>
 
-    <span class="separator">|</span>
+  <span class="separator">|</span>
 
-    <span class="stat">
-      <span class="stat-number">{{ followingCount }}</span>
-      <span class="stat-label">Following</span>
-    </span>
-  </div>
+  <span class="stat">
+    <span class="stat-number">{{ followingCount }}</span>
+    <span class="stat-label">Following</span>
+  </span>
+
+  <span class="separator">|</span>
+
+  <span class="stat clickable"
+    [routerLink]="['/readBooks', user.id]">
+    <span class="stat-number">{{ readBooksCount }}</span>
+    <span class="stat-label">Read</span>
+  </span>
+
+  <span class="separator">|</span>
+
+  <span
+    class="stat clickable"
+    [routerLink]="['/wishedBooks', user.id]">
+    <span class="stat-number">{{ wishedBooksCount }}</span>
+    <span class="stat-label">Wished</span>
+  </span>
+
+</div>
+
 
   <button class="search-readers-btn" routerLink="/searchReaders">
     Search Readers

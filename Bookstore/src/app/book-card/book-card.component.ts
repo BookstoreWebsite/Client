@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Book } from '../models/book';
+import { ShoppingCartService } from '../service/shopping-cart/shopping-cart.service';
+import { TokenStorageService } from '../service/auth/token.service';
 
 @Component({
   selector: 'app-book-card',
@@ -10,33 +12,50 @@ export class BookCardComponent {
 
   @Input() book!: Book;
   stars: any;
+  showAddedMessage = false;
+
+  constructor(private shoppingCartService: ShoppingCartService, private tokenStorage: TokenStorageService){}
 
   get starStates(): string[] {
   const rating = this.book?.rating ?? 0;
   const stars: string[] = [];
 
   for (let i = 1; i <= 5; i++) {
-    // koliko je popunjena konkretna zvezda (i)
-    // npr. rating = 4.2:
-    // i = 1 → 1+
-    // i = 4 → 1+
-    // i = 5 → 0.2 (delimično)
+
     const fill = rating - (i - 1);
 
     if (fill >= 1) {
-      stars.push('full');          // potpuno popunjena
+      stars.push('full');          
     } else if (fill <= 0) {
-      stars.push('empty');         // prazna
+      stars.push('empty');         
     } else if (fill <= 0.33) {
-      stars.push('quarter');       // malo popunjena (npr 4.1–4.3)
+      stars.push('quarter');       
     } else if (fill <= 0.66) {
-      stars.push('half');          // pola (npr 4.4–4.6)
+      stars.push('half');          
     } else {
-      stars.push('half-strong');   // skoro puna (npr 4.7–4.9)
+      stars.push('half-strong');   
     }
   }
 
   return stars;
 }
+  addToCart(book: any): void {
+  const userId = this.tokenStorage.getUserId();
+  const productId = String(book.id);
+
+  this.shoppingCartService.addToCart(userId, productId).subscribe({
+    next: () => {
+      console.log('Add to cart:', productId);
+      this.showAddedMessage = true;
+      setTimeout(() => {
+        this.showAddedMessage = false;
+      }, 2000);
+    },
+    error: (err) => {
+      console.error('Add to cart error:', err);
+    }
+  });
+}
+
 
 }

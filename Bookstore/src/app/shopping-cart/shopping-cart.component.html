@@ -1,0 +1,35 @@
+<div class="shopping-cart">
+  <h2 class="title">Shopping Cart</h2>
+
+  <div *ngIf="isLoading" class="info-text">
+    Loading...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-text">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="items.length === 0" class="empty-text">
+      Shopping cart is empty!
+    </div>
+
+    <div *ngIf="items.length > 0" class="items-list">
+      <app-cart-item
+        *ngFor="let item of items"
+        [item]="item"
+        (changed)="loadCart()">
+      </app-cart-item>
+
+      <div class="cart-summary">
+        <div class="total-price">
+          Total: {{ totalPrice | number:'1.2-2' }}
+        </div>
+
+        <button class="payment-btn" (click)="goToPayment()">
+          Go to payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

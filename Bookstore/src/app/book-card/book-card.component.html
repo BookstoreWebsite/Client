@@ -1,17 +1,24 @@
-<div class="card">
-  <img [src]="book.imageUrl" [alt]="book.title" />
+<div class="card" [routerLink]="['/books', book.id]">
+  <img [src]="book.imageUrl" [alt]="book.name" />
 
-  <h3>{{ book.title }}</h3>
+  <h3>{{ book.name }}</h3>
   <p class="author">{{ book.author }}</p>
 
   <div class="rating">
-  <ng-container *ngFor="let s of starStates">
-    <span class="star"
-          [ngClass]="s">
-      ★
-    </span>
-  </ng-container>
+    <ng-container *ngFor="let s of starStates">
+      <span class="star" [ngClass]="s">★</span>
+    </ng-container>
 
-  <span class="rating-number">{{ book.rating || 0 }}/5</span>
+    <span class="rating-number">{{ book.rating || 0 }}/5</span>
+
+    <button
+      class="add-to-cart-btn"
+      (click)="addToCart(book); $event.stopPropagation()">
+      🛒
+    </button>
+  </div>
 </div>
+
+<div class="toast top-center" *ngIf="showAddedMessage">
+  Book added to cart ✔
 </div>

@@ -41,4 +41,13 @@ export class ReaderProfileComponent implements OnInit{
   get profileImage(): string {
     return this.user?.profilePictureUrl || this.defaultProfilePicture;
   }
+
+  get readBooksCount(): number {
+  return this.user?.readBooksCount ?? 0;
+  }
+
+  get wishedBooksCount(): number {
+    return this.user?.wishedBooksCount ?? 0;
+  }
+
 }

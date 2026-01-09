@@ -1,0 +1,54 @@
+<div class="payment">
+  <h2 class="title">Payment</h2>
+
+  <div class="summary">
+    <div class="label">Total price:</div>
+    <div class="value">{{ totalPrice | number:'1.2-2' }}</div>
+  </div>
+
+  <form [formGroup]="addressForm" class="form">
+    <div class="row">
+      <label>Country</label>
+      <input type="text" formControlName="country" />
+      <div class="error" *ngIf="addressForm.get('country')?.touched && addressForm.get('country')?.invalid">
+        Country is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <label>City</label>
+      <input type="text" formControlName="city" />
+      <div class="error" *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid">
+        City is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Street</label>
+      <input type="text" formControlName="street" />
+      <div class="error" *ngIf="addressForm.get('street')?.touched && addressForm.get('street')?.invalid">
+        Street is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Number</label>
+      <input type="text" formControlName="number" />
+      <div class="error" *ngIf="addressForm.get('number')?.touched && addressForm.get('number')?.invalid">
+        Number is required.
+      </div>
+    </div>
+
+    <div class="row">
+      <label>Postal code</label>
+      <input type="text" formControlName="postalCode" />
+      <div class="error" *ngIf="addressForm.get('postalCode')?.touched && addressForm.get('postalCode')?.invalid">
+        Postal code is required.
+      </div>
+    </div>
+
+    <button type="button" class="purchase-btn" (click)="purchase()">
+      Purchase
+    </button>
+  </form>
+</div>

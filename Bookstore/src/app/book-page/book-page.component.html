@@ -1,0 +1,116 @@
+<div class="book-page">
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="!isLoading && !errorMessage && book">
+    <div class="header">
+      <img class="cover" [src]="book.imageUrl" [alt]="book.name" />
+
+      <div class="meta">
+        <div class="top-row">
+          <h2 class="title">{{ book.name }}</h2>
+
+          <button class="cart-btn" type="button" (click)="addToCart()" title="Add to cart">
+            🛒
+          </button>
+        </div>
+
+        <div class="author">by {{ book.author }}</div>
+
+        <div class="rating-price">
+          <div class="rating">
+            Rating:
+            <span *ngIf="book.rating !== null; else noRating">
+              {{ book.rating | number:'1.1-1' }}
+            </span>
+            <ng-template #noRating>—</ng-template>
+          </div>
+
+          <div class="price" *ngIf="book.price !== null">
+            Price: {{ book.price | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div class="genres" *ngIf="book.genres && book.genres.length > 0">
+          <span class="genre" *ngFor="let g of book.genres">
+            {{ g.name }}
+          </span>
+        </div>
+
+        <p class="description">
+          {{ book.description }}
+        </p>
+
+        <button class="primary-btn" type="button" (click)="leaveReview()">
+          Leave a review
+        </button>
+        <div class="book-actions">
+          <button class="secondary-btn" type="button" (click)="addToRead()">
+            Add to read
+          </button>
+
+          <button class="secondary-btn" type="button" (click)="addToWishlist()">
+            Add to wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-section">
+      <h3 class="section-title">Reviews</h3>
+
+      <div *ngIf="(book.reviews?.length ?? 0) === 0" class="info">
+        No reviews yet.
+      </div>
+
+      <div class="review-list" *ngIf="(book.reviews?.length ?? 0) > 0">
+        <div class="review" *ngFor="let r of displayedReviews; trackBy: trackByReviewId">
+          <div class="review-head">
+            <div class="review-title">{{ r.title }}</div>
+            <div class="review-rating">★ {{ r.rating }}</div>
+          </div>
+          <div class="review-text">{{ r.text }}</div>
+          <div class="review-actions">
+            <button class="secondary-btn" type="button" (click)="toggleReply(r.id)">
+              Reply
+            </button>
+
+            <button class="secondary-btn" type="button" (click)="reportReview(r.id)">
+              Report
+            </button>
+          </div>
+          <div class="reply-form" *ngIf="isReplyOpen(r.id)">
+            <textarea
+              class="reply-textarea"
+              [(ngModel)]="replyDrafts[r.id]"
+              rows="3"
+              placeholder="Write a reply..."></textarea>
+
+            <div class="reply-actions">
+              <button class="primary-btn" type="button" (click)="submitReply(r.id)">
+                Submit
+              </button>
+              <button class="secondary-btn" type="button" (click)="cancelReply(r.id)">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div class="comments-section">
+            <div *ngIf="(r.comments?.length ?? 0) === 0" class="no-comments">
+              No comments yet.
+            </div>
+            <app-comment
+            *ngFor="let c of r.comments"
+            [comment]="c"
+            (reply)="submitCommentReply($event, r.id)">
+            </app-comment>
+          </div>
+        </div>
+      </div>
+
+      <button class="secondary-btn" type="button" (click)="viewAllReviews()">
+        View all reviews
+      </button>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,25 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.title {
+  margin: 0 0 12px;
+}
+
+.info {
+  padding: 12px;
+  opacity: 0.8;
+}
+
+.error {
+  padding: 12px;
+  color: #c62828;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

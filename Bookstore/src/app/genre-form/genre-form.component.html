@@ -1,0 +1,25 @@
+<div class="genre-form">
+  <h2 class="title">Create genre</h2>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <label class="label" for="name">Genre name</label>
+  <input
+    id="name"
+    class="input"
+    type="text"
+    [(ngModel)]="name"
+    placeholder="Enter genre name" />
+
+  <div class="actions">
+    <button
+      class="primary-btn"
+      type="button"
+      (click)="submit()"
+      [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Submitting...' : 'Submit' }}
+    </button>
+  </div>
+</div>

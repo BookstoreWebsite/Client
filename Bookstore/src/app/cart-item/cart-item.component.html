@@ -1,0 +1,31 @@
+<div class="cart-item">
+  <img
+    class="product-image"
+    [src]="item.productImageUrl || defaultImage"
+    alt="{{ item.productName }}"
+  />
+
+  <div class="product-info">
+    <div class="product-name">
+      {{ item.productName }}
+    </div>
+
+    <div class="quantity-controls">
+      <button class="qty-btn" type="button" (click)="decrementQuantity(item.id)">−</button>
+      <span class="quantity-value">{{ item.quantity }}</span>
+      <button class="qty-btn" type="button" (click)="incrementQuantity(item.id)">+</button>
+
+      <button
+        class="remove-btn"
+        type="button"
+        title="Remove item"
+        (click)="removeItem(item.id)">
+        🗑️
+      </button>
+    </div>
+
+    <div class="price">
+      Price: {{ item.productPrice * item.quantity | number:'1.2-2' }}
+    </div>
+  </div>
+</div>
