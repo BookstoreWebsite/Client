@@ -40,22 +40,20 @@ export class BookCardComponent {
   return stars;
 }
   addToCart(book: any): void {
+  if ((book?.amount ?? 0) <= 0) return;
+
   const userId = this.tokenStorage.getUserId();
   const productId = String(book.id);
 
   this.shoppingCartService.addToCart(userId, productId).subscribe({
     next: () => {
-      console.log('Add to cart:', productId);
       this.showAddedMessage = true;
-      setTimeout(() => {
-        this.showAddedMessage = false;
-      }, 2000);
+      setTimeout(() => (this.showAddedMessage = false), 2000);
     },
-    error: (err) => {
-      console.error('Add to cart error:', err);
-    }
+    error: (err) => console.error('Add to cart error:', err)
   });
 }
+
 
 
 }

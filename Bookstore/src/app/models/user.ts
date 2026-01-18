@@ -1,3 +1,4 @@
+import { Genre } from "./genre";
 import { Review } from "./review";
 
 export interface User {
@@ -6,7 +7,7 @@ export interface User {
     firstName: string,
     lastName: string, 
     email: string,
-    hashedPassword: string,
+    password: string,
     phoneNumber: string,
     type: number,
     profilePictureUrl: string,
@@ -14,6 +15,7 @@ export interface User {
     followerIds: string[] | null,
     followingIds: string[] | null,
     reviews: Review[] | null,
+    favoriteGenres: Genre[] | null,
     wishedBooksCount: number,
     readBooksCount: number
 }

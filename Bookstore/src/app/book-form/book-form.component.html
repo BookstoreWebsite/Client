@@ -42,17 +42,23 @@
 
   <div class="genre-select-container">
   <label>Genres</label>
-  <select
-    multiple
-    [(ngModel)]="selectedGenreIds"
-    name="genreIds"
-    size="5"
-    class="genre-select">
-    <option *ngFor="let g of genres" [ngValue]="g.id">
-      {{ g.name }}
-    </option>
-  </select>
+
+  <div class="genre-checkboxes">
+    <label class="genre-item" *ngFor="let g of genres">
+      <input
+        type="checkbox"
+        [checked]="isGenreSelected(g.id)"
+        (change)="onGenreToggle(g.id, $event)"
+      />
+      <span>{{ g.name }}</span>
+    </label>
+  </div>
+
+  <div class="error" *ngIf="genresTouched && selectedGenreIds.length === 0">
+    <small>Pick at least one genre.</small>
+  </div>
 </div>
+
 
 <div class="form-group">
   <label>Price</label>
@@ -66,11 +72,33 @@
     step="0.01">
 </div>
 
-  <button 
-    type="submit" 
-    class="btn" 
-    [disabled]="bookForm.invalid">
-    Create Book
-  </button>
+<div class="form-group">
+  <label>Amount</label>
+  <input
+    type="number"
+    class="form-control"
+    name="amount"
+    [(ngModel)]="book.amount"
+    required
+    min="0"
+    step="1"
+    inputmode="numeric"
+    pattern="^[0-9]+$"
+    #amountModel="ngModel"
+    (ngModelChange)="coerceAmountToInt()"
+  />
+
+  <div class="error" *ngIf="amountModel.invalid && (amountModel.dirty || amountModel.touched)">
+    <small *ngIf="amountModel.errors?.['required']">Amount is mandatory.</small>
+    <small *ngIf="amountModel.errors?.['min']">Amount cannot be negative.</small>
+    <small *ngIf="amountModel.errors?.['pattern']">Amount cannot contain decimals</small>
+    <small *ngIf="amountModel.errors?.['integer']">Amount has to be an integer.</small>
+  </div>
+</div>
+
+
+  <button type="submit" class="btn" [disabled]="bookForm.invalid">
+  {{ isEditMode ? 'Update Book' : 'Create Book' }}
+</button>
 
 </form>

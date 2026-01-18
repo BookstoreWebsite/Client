@@ -12,10 +12,12 @@
     <span class="rating-number">{{ book.rating || 0 }}/5</span>
 
     <button
-      class="add-to-cart-btn"
-      (click)="addToCart(book); $event.stopPropagation()">
-      🛒
-    </button>
+    *ngIf="(book?.amount ?? 0) > 0"
+    class="add-to-cart-btn"
+    (click)="addToCart(book); $event.stopPropagation()">
+    🛒
+  </button>
+
   </div>
 </div>
 

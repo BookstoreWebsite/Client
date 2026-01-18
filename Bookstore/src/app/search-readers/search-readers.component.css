@@ -121,3 +121,12 @@
   background-color: #0066d3;
 }
 
+.user-card.clickable {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.user-card.clickable:hover {
+  background-color: #f3f6ff;
+  border-color: #cfd8ff;
+}

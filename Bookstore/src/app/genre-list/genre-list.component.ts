@@ -22,14 +22,16 @@ export class GenreListComponent implements OnInit{
     });
   }
 
-  getGenres(){
-    this.genreService.getAll().subscribe(
-      (data: Genre[]) => {
-        this.genres = data;
+  getGenres() {
+    this.genreService.getAll().subscribe({
+      next: (data: Genre[]) => {
+        this.genres = data
+          .slice()
+          .sort((a, b) => a.name.localeCompare(b.name));
       },
-      (error) => {
-        console.error('Failed to fetch genres', error)
+      error: (error) => {
+        console.error('Failed to fetch genres', error);
       }
-    )
+    });
   }
 }

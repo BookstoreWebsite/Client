@@ -1,4 +1,4 @@
-<div class="book-card" *ngIf="book">
+<div class="book-card clickable" *ngIf="book"  [routerLink]="['/books', book.id]">
   <img
     class="cover"
     [src]="book.imageUrl"

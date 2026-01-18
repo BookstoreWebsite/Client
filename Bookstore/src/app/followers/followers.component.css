@@ -1,0 +1,76 @@
+.following-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.page-title {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.error-text {
+  font-size: 14px;
+  color: #c0392b;
+  margin-top: 8px;
+}
+
+.results-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-card {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+}
+
+.user-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: 600;
+  color: #333;
+}
+
+.full-name {
+  font-size: 14px;
+  color: #555;
+}
+
+.user-card.clickable {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.user-card.clickable:hover {
+  background-color: #f3f6ff;
+  border-color: #cfd8ff;
+}

@@ -1,37 +1,128 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
 import { AuthService } from '../service/auth/auth.service';
 import { TokenStorageService } from '../service/auth/token.service';
+import { UserService } from '../service/user/user.service'; // ✅ treba zbog follow poziva (ili tvoj follow servis)
+import { GenreService } from '../service/genre/genre.service';
+import { Genre } from '../models/genre';
 
 @Component({
   selector: 'app-reader-profile',
   templateUrl: './reader-profile.component.html',
   styleUrls: ['./reader-profile.component.css']
 })
-export class ReaderProfileComponent implements OnInit{
+export class ReaderProfileComponent implements OnInit {
   @Input() user!: User;
 
   defaultProfilePicture = 'assets/default-profile-picture.png';
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService){}
+  viewerId!: string;
+  targetUserId!: string;
 
-  ngOnInit(){
-    this.fetchUser();
+  showGenres = false;
+
+  allGenres: Genre[] = [];
+  loadingGenres = false;
+  savingGenres = false;
+  genresError: string | null = null;
+
+  selectedGenreIds = new Set<string>();
+
+  constructor(
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private genreService: GenreService
+  ) {}
+
+  ngOnInit(): void {
+    this.viewerId = this.tokenStorage.getUserId();
+
+    const routeId = this.route.snapshot.paramMap.get('id');
+    this.targetUserId = routeId ?? this.viewerId;
+
+    this.fetchUser(this.targetUserId);
   }
 
-  fetchUser(){
-    this.authService.getById(this.tokenStorage.getUserId()).subscribe(
-      (data: User) => {
+  fetchUser(id: string) {
+    this.authService.getById(id).subscribe({
+      next: (data: User) => {
         this.user = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching user profile', error);
       }
-    );
+    });
+  }
+
+  get isMyProfile(): boolean {
+    return this.targetUserId === this.viewerId;
+  }
+
+  get isFollowedByMe(): boolean {
+    if (this.isMyProfile) return true;
+    return this.user?.followerIds?.includes(this.viewerId) ?? false;
+  }
+
+  get canOpenStats(): boolean {
+    return this.isMyProfile || this.isFollowedByMe;
+  }
+
+  get showFollowButton(): boolean {
+    return !this.isMyProfile && !this.isFollowedByMe;
+  }
+
+  onFollow(): void {
+    if (!this.user?.id) return;
+
+    this.userService.follow(this.viewerId, this.user.id).subscribe({
+      next: () => {
+        if (!this.user.followerIds) this.user.followerIds = [];
+        if (!this.user.followerIds.includes(this.viewerId)) {
+          this.user.followerIds.push(this.viewerId);
+        }
+      },
+      error: (err) => console.error('Follow error', err)
+    });
+  }
+
+  onUnfollow(): void {
+  if (!this.user?.id) return;
+
+  this.userService.unfollow(this.viewerId, this.user.id).subscribe({
+    next: () => {
+      this.user.followerIds = (this.user.followerIds ?? []).filter(id => id !== this.viewerId);
+    },
+    error: (err) => console.error('Unfollow error', err)
+  });
+}
+
+
+  goToFollowers(): void {
+    if (!this.canOpenStats) return;
+    this.router.navigate(['/followers', this.user.id]);
+  }
+
+  goToFollowing(): void {
+    if (!this.canOpenStats) return;
+    this.router.navigate(['/following', this.user.id]);
+  }
+
+  goToReadBooks(): void {
+    if (!this.canOpenStats) return;
+    this.router.navigate(['/readBooks', this.user.id]);
+  }
+
+  goToWishedBooks(): void {
+    if (!this.canOpenStats) return;
+    this.router.navigate(['/wishedBooks', this.user.id]);
   }
 
   get followersCount(): number {
-  return this.user?.followerIds?.length ?? 0;
+    return this.user?.followerIds?.length ?? 0;
   }
 
   get followingCount(): number {
@@ -43,11 +134,70 @@ export class ReaderProfileComponent implements OnInit{
   }
 
   get readBooksCount(): number {
-  return this.user?.readBooksCount ?? 0;
+    return this.user?.readBooksCount ?? 0;
   }
 
   get wishedBooksCount(): number {
     return this.user?.wishedBooksCount ?? 0;
   }
 
+  toggleGenres(): void {
+  this.showGenres = !this.showGenres;
+
+  if (this.showGenres && this.allGenres.length === 0) {
+    this.loadGenres();
+    this.prefillSelectedFromUser();
+  }
+}
+
+private prefillSelectedFromUser(): void {
+  this.selectedGenreIds.clear();
+  (this.user?.favoriteGenres ?? []).forEach(g => this.selectedGenreIds.add(g.id));
+}
+
+private loadGenres(): void {
+  this.loadingGenres = true;
+  this.genresError = null;
+
+  this.genreService.getAll().subscribe({
+    next: (genres: Genre[]) => {
+      this.allGenres = genres ?? [];
+      this.loadingGenres = false;
+    },
+    error: (err) => {
+      console.error('Error loading genres', err);
+      this.genresError = 'Failed to load genres.';
+      this.loadingGenres = false;
+    }
+  });
+}
+
+onGenreToggle(genreId: string, event: Event): void {
+  const checked = (event.target as HTMLInputElement).checked;
+
+  if (checked) this.selectedGenreIds.add(genreId);
+  else this.selectedGenreIds.delete(genreId);
+}
+
+saveFavoriteGenres(): void {
+  const userId = this.viewerId;
+
+  const genreIds = Array.from(this.selectedGenreIds);
+
+  this.savingGenres = true;
+  this.genresError = null;
+
+  this.genreService.addGenresToFavorites(userId, genreIds).subscribe({
+    next: () => {
+      this.savingGenres = false;
+
+      this.user.favoriteGenres = this.allGenres.filter(g => this.selectedGenreIds.has(g.id));
+    },
+    error: (err) => {
+      console.error('Save favorite genres error', err);
+      this.genresError = 'Failed to save favorite genres.';
+      this.savingGenres = false;
+    }
+  });
+}
 }

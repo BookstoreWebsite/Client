@@ -62,4 +62,22 @@ export class BookService {
   addBookToRead(userId: string, bookId: string){
     return this.http.post<void>(`${this.apiUrl}/addBookToRead/${userId}/${bookId}`, {});
   }
+  removeBookFromWished(userId: string, bookId: string){
+    return this.http.delete<void>(`${this.apiUrl}/removeBookFromWished/${userId}/${bookId}`, {});
+  }
+  removeBookFromRead(userId: string, bookId: string){
+    return this.http.delete<void>(`${this.apiUrl}/removeBookFromRead/${userId}/${bookId}`, {});
+  }
+  isBookInRead(userId: string, bookId: string) {
+    return this.http.get<boolean>(`${this.apiUrl}/isBookInRead/${userId}/${bookId}`);
+  }
+  isBookInWished(userId: string, bookId: string) {
+    return this.http.get<boolean>(`${this.apiUrl}/isBookInWished/${userId}/${bookId}`);
+  }
+  update(id: string, book: Book, genreIds: string[]) {
+    return this.http.put(`${this.apiUrl}/${id}`, { bookDto: book, genreIds: genreIds });
+  }
+  getRecommendedBooks(userId: string): Observable<Book[]>{
+    return this.http.get<Book[]>(`${this.apiUrl}/getRecommendedBooks/${userId}`);
+  }
 }

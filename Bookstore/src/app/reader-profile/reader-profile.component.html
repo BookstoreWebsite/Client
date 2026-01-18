@@ -1,10 +1,6 @@
 <div class="profile-card" *ngIf="user">
-  
-  <img
-    class="profile-image"
-    [src]="profileImage"
-    alt="Profile image"
-  />
+
+  <img class="profile-image" [src]="profileImage" alt="Profile image" />
 
   <h2 class="username">@{{ user.username }}</h2>
 
@@ -13,41 +9,101 @@
   </p>
 
   <div class="follow-stats">
-  <span class="stat">
-    <span class="stat-number">{{ followersCount }}</span>
-    <span class="stat-label">Followers</span>
-  </span>
 
-  <span class="separator">|</span>
+    <span
+      class="stat"
+      [class.clickable]="canOpenStats"
+      [class.disabled]="!canOpenStats"
+      (click)="goToFollowers()">
+      <span class="stat-number">{{ followersCount }}</span>
+      <span class="stat-label">Followers</span>
+    </span>
 
-  <span class="stat">
-    <span class="stat-number">{{ followingCount }}</span>
-    <span class="stat-label">Following</span>
-  </span>
+    <span class="separator">|</span>
 
-  <span class="separator">|</span>
+    <span
+      class="stat"
+      [class.clickable]="canOpenStats"
+      [class.disabled]="!canOpenStats"
+      (click)="goToFollowing()">
+      <span class="stat-number">{{ followingCount }}</span>
+      <span class="stat-label">Following</span>
+    </span>
 
-  <span class="stat clickable"
-    [routerLink]="['/readBooks', user.id]">
-    <span class="stat-number">{{ readBooksCount }}</span>
-    <span class="stat-label">Read</span>
-  </span>
+    <span class="separator">|</span>
 
-  <span class="separator">|</span>
+    <span
+      class="stat"
+      [class.clickable]="canOpenStats"
+      [class.disabled]="!canOpenStats"
+      (click)="goToReadBooks()">
+      <span class="stat-number">{{ readBooksCount }}</span>
+      <span class="stat-label">Read</span>
+    </span>
 
-  <span
-    class="stat clickable"
-    [routerLink]="['/wishedBooks', user.id]">
-    <span class="stat-number">{{ wishedBooksCount }}</span>
-    <span class="stat-label">Wished</span>
-  </span>
+    <span class="separator">|</span>
 
-</div>
+    <span
+      class="stat"
+      [class.clickable]="canOpenStats"
+      [class.disabled]="!canOpenStats"
+      (click)="goToWishedBooks()">
+      <span class="stat-number">{{ wishedBooksCount }}</span>
+      <span class="stat-label">Wished</span>
+    </span>
+
+  </div>
+
+  <button
+    class="follow-btn"
+    *ngIf="!isMyProfile && !isFollowedByMe"
+    (click)="onFollow()">
+    Follow
+  </button>
+
+  <button
+    class="unfollow-btn"
+    *ngIf="!isMyProfile && isFollowedByMe"
+    (click)="onUnfollow()">
+    Unfollow
+  </button>
 
 
-  <button class="search-readers-btn" routerLink="/searchReaders">
+  <button
+    class="search-readers-btn"
+    *ngIf="isMyProfile"
+    routerLink="/searchReaders">
     Search Readers
   </button>
+
+  <button
+    class="favorite-genres-btn"
+    *ngIf="isMyProfile"
+    (click)="toggleGenres()">
+    {{ showGenres ? 'Close' : 'Favorite genres' }}
+  </button>
+
+  <div class="genres-panel" *ngIf="isMyProfile && showGenres">
+    <div *ngIf="loadingGenres">Loading genres...</div>
+    <div *ngIf="genresError" class="error">{{ genresError }}</div>
+
+    <div class="genre-list" *ngIf="!loadingGenres && allGenres?.length">
+      <label class="genre-item" *ngFor="let g of allGenres">
+        <input
+          type="checkbox"
+          [checked]="selectedGenreIds.has(g.id)"
+          (change)="onGenreToggle(g.id, $event)" />
+        <span>{{ g.name }}</span>
+      </label>
+    </div>
+
+    <button
+      class="save-genres-btn"
+      [disabled]="savingGenres"
+      (click)="saveFavoriteGenres()">
+      {{ savingGenres ? 'Saving...' : 'Save' }}
+    </button>
+  </div>
 
   <p class="bio" *ngIf="user.readerBio">
     {{ user.readerBio }}

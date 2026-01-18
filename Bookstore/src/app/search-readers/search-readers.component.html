@@ -25,9 +25,12 @@
   </div>
 
   <div *ngIf="!isLoading && users.length > 0" class="results-list">
-    <div class="user-card" *ngFor="let user of users">
+    <div
+      class="user-card clickable"
+      *ngFor="let user of users"
+      [routerLink]="['/profile', user.id]"
+    >
       <div class="user-main">
-
         <img
           class="user-avatar"
           [src]="user.profilePictureUrl || defaultAvatar"
@@ -43,15 +46,17 @@
           </div>
         </div>
       </div>
-        <button
+
+      <button
         class="follow-btn"
         *ngIf="canFollow(user)"
-        (click)="onFollow(user)"
-        >
+        (click)="onFollow(user); $event.stopPropagation()"
+      >
         Follow
-        </button>
+      </button>
     </div>
   </div>
+
 
   <div
     *ngIf="hasSearched && !isLoading && !errorMessage && users.length === 0"

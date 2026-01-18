@@ -7,6 +7,8 @@ import { forkJoin } from 'rxjs';
 import { ShoppingCartService } from '../service/shopping-cart/shopping-cart.service';
 import { TokenStorageService } from '../service/auth/token.service';
 import { AppComment } from '../models/comment';
+import { User } from '../models/user';
+import { AuthService } from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-book-page',
@@ -17,15 +19,43 @@ export class BookPageComponent implements OnInit {
   book: Book | null = null;
   isLoading = false;
   errorMessage = '';
+  isLoggedIn: boolean = false;
+  currentUser: User | null = null;
   id = this.route.snapshot.paramMap.get('id');
-  constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router, private shoppingCartService: ShoppingCartService, private tokenStorage: TokenStorageService) {}
+  isInRead = false;
+  isInWished = false;
+
+  constructor(private route: ActivatedRoute,
+    private bookService: BookService,
+    private router: Router,
+    private shoppingCartService: ShoppingCartService,
+    private tokenStorage: TokenStorageService,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.checkLoginStatus();
     if (!this.id) {
       this.errorMessage = 'Missing book id.';
       return;
     }
     this.loadBook(this.id);
+    const userId = this.tokenStorage.getUserId();
+    if (this.isLoggedIn && userId && this.id) {
+      this.loadUserBookFlags(userId, this.id);
+}
+
+  }
+
+  checkLoginStatus(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.currentUser = user;
+      const userId = this.tokenStorage.getUserId();
+      if (this.isLoggedIn && userId && this.id) {
+        this.loadUserBookFlags(userId, this.id);
+      }
+
+    })
   }
 
   private loadBook(id: string): void {
@@ -63,6 +93,7 @@ export class BookPageComponent implements OnInit {
   }
 
   addToCart(): void {
+    if ((this.book?.amount ?? 0) <= 0) return;
     console.log('Add to cart clicked');
     if(this.id != null){
       this.shoppingCartService.addToCart(this.tokenStorage.getUserId(), this.id).subscribe({
@@ -186,7 +217,10 @@ addToWishlist(): void {
   if (!userId || !bookId) return;
 
   this.bookService.addBookToWished(userId, bookId).subscribe({
-    next: () => console.log('Added to wishlist'),
+    next: () => {
+      console.log('Added to wishlist');
+      this.isInWished = true;
+    },
     error: (err) => console.error('Failed to add to wishlist', err)
   });
 }
@@ -198,8 +232,55 @@ addToRead(): void {
   if (!userId || !bookId) return;
 
   this.bookService.addBookToRead(userId, bookId).subscribe({
-    next: () => console.log('Added to read'),
+    next: () => {
+      console.log('Added to read');
+      this.isInRead = true;
+    },
     error: (err) => console.error('Failed to add to read', err)
+  });
+}
+
+removeFromWished(): void {
+  const userId = this.tokenStorage.getUserId();
+  const bookId = this.id;
+  if (!userId || !bookId) return;
+
+  this.bookService.removeBookFromWished(userId, bookId).subscribe({
+    next: () => {
+      this.isInWished = false;
+      console.log('Removed from wished');
+    },
+    error: (err) => console.error('Failed to remove from wished', err)
+  });
+}
+
+removeFromRead(): void {
+  const userId = this.tokenStorage.getUserId();
+  const bookId = this.id;
+  if (!userId || !bookId) return;
+
+  this.bookService.removeBookFromRead(userId, bookId).subscribe({
+    next: () => {
+      this.isInRead = false;
+      console.log('Removed from read');
+    },
+    error: (err) => console.error('Failed to remove from read', err)
+  });
+}
+
+
+private loadUserBookFlags(userId: string, bookId: string): void {
+  forkJoin({
+    inRead: this.bookService.isBookInRead(userId, bookId),
+    inWished: this.bookService.isBookInWished(userId, bookId)
+  }).subscribe({
+    next: ({ inRead, inWished }) => {
+      this.isInRead = !!inRead;
+      this.isInWished = !!inWished;
+    },
+    error: (err) => {
+      console.error('Failed to load read/wished flags', err);
+    }
   });
 }
 

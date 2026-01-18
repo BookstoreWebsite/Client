@@ -1,0 +1,43 @@
+<div class="following-container">
+
+  <h2 class="page-title">Followers</h2>
+
+  <div *ngIf="isLoading" class="info-text">
+    Loading...
+  </div>
+
+  <div *ngIf="!isLoading && errorText" class="error-text">
+    {{ errorText }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorText && users.length === 0" class="info-text">
+    No followers.
+  </div>
+
+  <div *ngIf="!isLoading && users.length > 0" class="results-list">
+        <div
+            class="user-card clickable"
+            *ngFor="let user of users"
+            [routerLink]="['/profile', user.id]"
+        >
+            <div class="user-main">
+            <img
+                class="user-avatar"
+                [src]="getAvatar(user)"
+                alt="Profile image"
+            />
+
+            <div class="user-text">
+                <div class="user-name-line">
+                <span class="username">@{{ user.username }}</span>
+                </div>
+
+                <div class="full-name">
+                {{ user.firstName }} {{ user.lastName }}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -24,4 +24,10 @@ export class GenreService {
     create(data: any){
       return this.http.post<void>(`${this.apiUrl}/create`, data);
     }
+    getById(id: string): Observable<Genre>{
+      return this.http.get<Genre>(`${this.apiUrl}/${id}`);
+    }
+    addGenresToFavorites(userId: string, genreIds: string[]){
+      return this.http.post<void>(`${this.apiUrl}/addGenresToFavorites/${userId}`, genreIds);
+    }
 }

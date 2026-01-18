@@ -10,9 +10,10 @@
         <div class="top-row">
           <h2 class="title">{{ book.name }}</h2>
 
-          <button class="cart-btn" type="button" (click)="addToCart()" title="Add to cart">
+          <button class="cart-btn" type="button" *ngIf="((book?.amount ?? 0) > 0) && isLoggedIn && currentUser?.type == 2" (click)="addToCart(); $event.stopPropagation()" title="Add to cart">
             🛒
           </button>
+          <button  *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)" [routerLink]="['/books', book.id, 'edit']">Update</button>
         </div>
 
         <div class="author">by {{ book.author }}</div>
@@ -45,13 +46,31 @@
           Leave a review
         </button>
         <div class="book-actions">
-          <button class="secondary-btn" type="button" (click)="addToRead()">
+          <button
+            class="secondary-btn"
+            type="button"
+            *ngIf="!isInRead; else removeReadTpl"
+            (click)="addToRead()">
             Add to read
           </button>
+          <ng-template #removeReadTpl>
+            <button class="secondary-btn" type="button" (click)="removeFromRead()">
+              Remove from read
+            </button>
+          </ng-template>
 
-          <button class="secondary-btn" type="button" (click)="addToWishlist()">
+          <button
+            class="secondary-btn"
+            type="button"
+            *ngIf="!isInWished; else removeWishedTpl"
+            (click)="addToWishlist()">
             Add to wishlist
           </button>
+          <ng-template #removeWishedTpl>
+            <button class="secondary-btn" type="button" (click)="removeFromWished()">
+              Remove from wished
+            </button>
+          </ng-template>
         </div>
       </div>
     </div>

@@ -1,7 +1,49 @@
+<div class="home-toolbar">
+  <input
+    type="text"
+    class="search-input"
+    [(ngModel)]="searchTerm"
+    placeholder="Search by title or author..."
+  />
+  <button class="search-clear" type="button" *ngIf="searchTerm" (click)="clearSearch()">
+    ✕
+  </button>
+</div>
+
+<h2 class="section-title">Newest Additions</h2>
 <div class="book-grid">
   <app-book-card
-    *ngFor="let b of books"
+    *ngFor="let b of mostRecentBooks"
     [book]="b">
   </app-book-card>
 </div>
 
+<h2 class="section-title">Top Rated</h2>
+<div class="book-grid">
+  <app-book-card
+    *ngFor="let b of topRatedBooks"
+    [book]="b">
+  </app-book-card>
+</div>
+
+<h2 class="section-title">Recommended For You</h2>
+
+<div class="info-text" *ngIf="loadingRecommended">
+  Loading recommendations...
+</div>
+
+<div class="info-text" *ngIf="!loadingRecommended && recommendedBooks.length === 0">
+  No recommendations yet.
+</div>
+
+<div class="book-grid" *ngIf="!loadingRecommended && recommendedBooks.length > 0">
+  <app-book-card *ngFor="let b of recommendedBooks" [book]="b"></app-book-card>
+</div>
+
+<h2 class="section-title">All Books</h2>
+<div class="book-grid">
+  <app-book-card
+    *ngFor="let b of filteredBooks"
+    [book]="b">
+  </app-book-card>
+</div>

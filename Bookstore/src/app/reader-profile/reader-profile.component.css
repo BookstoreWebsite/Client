@@ -98,3 +98,42 @@
   text-decoration: underline;
 }
 
+.stat.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none; 
+}
+
+.stat.clickable {
+  cursor: pointer;
+}
+
+.follow-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.follow-btn:hover {
+  background-color: #0066d3;
+}
+
+.unfollow-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.unfollow-btn:hover {
+  background-color: #f2f2f2;
+}

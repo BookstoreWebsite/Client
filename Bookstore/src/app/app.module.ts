@@ -28,7 +28,9 @@ import { WishedBooksComponent } from './wished-books/wished-books.component';
 import { ReadBooksComponent } from './read-books/read-books.component';
 import { BookListCardComponent } from './book-list-card/book-list-card.component';
 import { GenreFormComponent } from './genre-form/genre-form.component';
-
+import { WorkerFormComponent } from './worker-form/worker-form.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowersComponent } from './followers/followers.component';
 
 
 @NgModule({
@@ -56,7 +58,10 @@ import { GenreFormComponent } from './genre-form/genre-form.component';
     WishedBooksComponent,
     ReadBooksComponent,
     BookListCardComponent,
-    GenreFormComponent
+    GenreFormComponent,
+    WorkerFormComponent,
+    FollowingComponent,
+    FollowersComponent
   ],
   imports: [
     BrowserModule,

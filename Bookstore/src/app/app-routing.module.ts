@@ -17,13 +17,18 @@ import { ReportsComponent } from './reports/reports.component';
 import { WishedBooksComponent } from './wished-books/wished-books.component';
 import { ReadBooksComponent } from './read-books/read-books.component';
 import { GenreFormComponent } from './genre-form/genre-form.component';
+import { WorkerFormComponent } from './worker-form/worker-form.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowersComponent } from './followers/followers.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'bookForm', component: BookFormComponent},
+  { path: 'books/:id/edit', component: BookFormComponent },
   { path: 'readerProfile', component: ReaderProfileComponent},
+  { path: 'profile/:id', component: ReaderProfileComponent },
   { path: 'searchReaders', component: SearchReadersComponent},
   { path: 'genre/:id', component: GenreComponent},
   { path: 'shoppingCart', component: ShoppingCartComponent},
@@ -36,6 +41,9 @@ const routes: Routes = [
   { path: 'wishedBooks/:userId', component: WishedBooksComponent},
   { path: 'readBooks/:userId', component: ReadBooksComponent},
   { path: 'genreForm', component: GenreFormComponent},
+  { path: 'addWorker', component: WorkerFormComponent },
+  { path: 'following/:id', component: FollowingComponent },
+  { path: 'followers/:id', component: FollowersComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

@@ -9,6 +9,8 @@ export interface Book {
     author: string,
     rating: number | null,
     price: number | null,
+    amount: number | null,
+    addTime: Date | null,
     genres: Genre[] | null,
     reviews: Review[] | null
 }

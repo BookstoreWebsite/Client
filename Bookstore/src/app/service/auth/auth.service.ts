@@ -60,4 +60,8 @@ export class AuthService {
     );
   }
 
+  createWorker(worker: User) {
+  return this.http.post(`${this.apiUrl}/createWorker`, worker);
+}
+
 }
