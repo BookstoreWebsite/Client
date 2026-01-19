@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../models/book';
 import { BookService } from '../service/book/book.service';
 import { TokenStorageService } from '../service/auth/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,17 +47,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  get filteredBooks(): Book[] {
-    const q = this.searchTerm.trim().toLowerCase();
-    if (!q) return this.books;
-
-    return this.books.filter(b => {
-      const title = (b.name ?? '').toLowerCase();
-      const author = (b.author ?? '').toLowerCase();
-      return title.includes(q) || author.includes(q);
-    });
-  }
-
   get mostRecentBooks(): Book[] {
     return [...this.books]
       .sort((a: any, b: any) => {
@@ -72,6 +63,13 @@ export class HomeComponent implements OnInit {
       .slice(0, 5);
   }
 
+  onSearchChange(value: string): void {
+    const q = (value ?? '').trim();
+    if (!q) return;
+
+    this.router.navigate(['/search'], { queryParams: { q } });
+  }
+
   clearSearch(): void {
     this.searchTerm = '';
   }
@@ -86,4 +84,14 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  submitSearch(): void {
+  const q = (this.searchTerm ?? '').trim();
+  if (!q) return;
+
+  this.router.navigate(['/search'], {
+    queryParams: { q }
+  });
+}
+
 }

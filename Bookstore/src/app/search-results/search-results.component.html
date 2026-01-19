@@ -1,0 +1,30 @@
+<div class="search-toolbar">
+  <input
+    type="text"
+    class="search-input"
+    [(ngModel)]="searchTerm"
+    (keydown.enter)="submitSearch()"
+    placeholder="Search by title or author..."
+  />
+  <button
+    class="search-clear"
+    type="button"
+    *ngIf="searchTerm"
+    (click)="clearSearch()"
+  >
+    ✕
+  </button>
+</div>
+
+
+<h2 class="section-title">Search results for: "{{ searchTerm }}"</h2>
+
+<div class="info-text" *ngIf="loading">Searching...</div>
+
+<div class="info-text" *ngIf="!loading && results.length === 0">
+  No books match your search.
+</div>
+
+<div class="book-grid" *ngIf="!loading && results.length > 0">
+  <app-book-card *ngFor="let b of results" [book]="b"></app-book-card>
+</div>

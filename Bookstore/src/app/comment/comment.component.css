@@ -1,131 +1,164 @@
-.comment-card {
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 12px;
-  background: #fff;
+.comment-wrapper {
+  margin-top: 14px;
 }
 
-.header {
+.comment-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 12px;
+  background: #ffffff;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.comment-card .header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.avatar {
+.comment-card .avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.username {
-  font-weight: 600;
+.comment-card .username {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #111827;
 }
 
-.text {
-  line-height: 1.5;
+.comment-card .text {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #111827;
   white-space: pre-wrap;
-}
-
-.comment-wrapper {
-  margin-top: 12px;
-}
-
-.replies {
-  margin-top: 8px;
-  padding-left: 8px;
-  border-left: 2px solid #e0e0e0;
-}
-
-.view-replies {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 13px;
-  color: #1976d2;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.loading {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #777;
 }
 
 .actions {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 10px;
   flex-wrap: wrap;
 }
 
-.reply-btn {
+.secondary-btn.reply-btn {
   margin-top: 0;
-  padding: 10px 14px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.reply-btn:hover,
+.view-replies {
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .view-replies:hover {
   text-decoration: underline;
 }
 
+.loading {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.replies {
+  margin-top: 10px;
+  padding-left: 14px;
+  border-left: 3px solid #fee2e2;
+}
+
 .reply-form {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .reply-form textarea {
   width: 100%;
   resize: vertical;
-  min-height: 60px;
-  padding: 8px;
+  min-height: 70px;
+  padding: 10px 12px;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
   outline: none;
 }
 
 .reply-form textarea:focus {
-  border-color: #1976d2;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
 }
 
 .reply-actions {
   display: flex;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .reply-actions .primary-btn,
 .reply-actions .secondary-btn {
   margin-top: 0;
-  padding: 10px 14px;
-}
-
-.comment-wrapper .comment-wrapper {
-  margin-top: 10px;
 }
 
 .primary-btn {
-  margin-top: 8px;
   padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
+  border: 1px solid #15803d;
+  background: #16a34a;
+  color: #ffffff;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 700;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.primary-btn:hover {
+  background: #15803d;
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.28);
+  transform: translateY(-1px);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
 }
 
 .secondary-btn {
-  margin-top: 12px;
   padding: 10px 14px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 700;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.secondary-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.secondary-btn:active {
+  transform: translateY(0);
+}
+
+.reply-btn {
+  margin-top: 0;
 }

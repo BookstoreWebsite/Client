@@ -1,5 +1,38 @@
-.main-content {
-  margin-left: 200px; /* da ne prelazi preko genre liste */
-  padding: 20px;
+:host {
+  --sidebar-width: 240px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
+.app-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-width);
+  min-height: 0;
+
+  border-right: 1px solid #e5e7eb;
+  background: #ffffff;
+
+  overflow: hidden;
+}
+
+.sidebar app-genre-list {
+  display: block;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+
+  overflow-y: auto;
+  padding: 20px;
+}

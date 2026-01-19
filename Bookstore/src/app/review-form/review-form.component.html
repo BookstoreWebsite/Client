@@ -1,38 +1,40 @@
-<div class="review-form">
-  <h3 class="title">Leave a review</h3>
+<div class="review-form-wrapper">
+  <div class="review-form">
+    <h3 class="title">Leave a review</h3>
 
-  <form [formGroup]="reviewForm">
-    <div class="field">
-      <label>Title</label>
-      <input type="text" formControlName="title" />
-      <div class="error" *ngIf="reviewForm.get('title')?.touched && reviewForm.get('title')?.invalid">
-        Title is required.
+    <form [formGroup]="reviewForm">
+      <div class="field">
+        <label>Title</label>
+        <input type="text" formControlName="title" />
+        <div class="error" *ngIf="reviewForm.get('title')?.touched && reviewForm.get('title')?.invalid">
+          Title is required.
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label>Review</label>
-      <textarea rows="5" formControlName="text"></textarea>
-      <div class="error" *ngIf="reviewForm.get('text')?.touched && reviewForm.get('text')?.invalid">
-        Review text is required.
+      <div class="field">
+        <label>Review</label>
+        <textarea rows="5" formControlName="text"></textarea>
+        <div class="error" *ngIf="reviewForm.get('text')?.touched && reviewForm.get('text')?.invalid">
+          Review text is required.
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label>Rating</label>
-      <div class="rating">
-        <label *ngFor="let r of [1,2,3,4,5]">
-          <input type="radio" [value]="r" formControlName="rating" />
-          {{ r }}
-        </label>
+      <div class="field">
+        <label>Rating</label>
+        <div class="rating">
+          <label *ngFor="let r of [1,2,3,4,5]">
+            <input type="radio" [value]="r" formControlName="rating" />
+            {{ r }}
+          </label>
+        </div>
+        <div class="error" *ngIf="reviewForm.get('rating')?.touched && reviewForm.get('rating')?.invalid">
+          Rating is required (1–5).
+        </div>
       </div>
-      <div class="error" *ngIf="reviewForm.get('rating')?.touched && reviewForm.get('rating')?.invalid">
-        Rating is required (1–5).
-      </div>
-    </div>
 
-    <button type="button" class="submit-btn" (click)="submit()">
-      Submit review
-    </button>
-  </form>
+      <button type="button" class="submit-btn" (click)="submit()">
+        Submit review
+      </button>
+    </form>
+  </div>
 </div>

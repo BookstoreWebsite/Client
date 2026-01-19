@@ -1,51 +1,127 @@
 .shopping-cart {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 16px;
+  max-width: 760px;
+  margin: 28px auto;
+  padding: 20px;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111827;
 }
 
 .title {
-  margin-bottom: 12px;
-}
-
-.empty-text {
-  padding: 16px;
-  border: 1px dashed #ccc;
-  border-radius: 8px;
+  margin: 0 0 18px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
   text-align: center;
-  color: #666;
-}
-
-.items-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .info-text {
-  color: #555;
+  margin-top: 12px;
+  padding: 10px 12px;
+
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+  text-align: center;
+
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .error-text {
-  color: #c0392b;
+  margin-top: 12px;
+  padding: 10px 12px;
+
+  font-size: 13px;
+  font-weight: 800;
+  color: #991b1b;
+  text-align: center;
+
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+}
+
+.empty-text {
+  margin-top: 14px;
+  padding: 14px 12px;
+
+  border: 1px dashed #bbf7d0;
+  border-radius: 16px;
+
+  background: #f0fdf4;
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 800;
+  color: #166534;
+}
+
+.items-list {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .cart-summary {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 14px;
+
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .total-price {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 900;
+  color: #111827;
 }
 
 .payment-btn {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+
+  border: 1px solid #15803d;
+  background: #16a34a;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 800;
   cursor: pointer;
+
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+  white-space: nowrap;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.payment-btn:hover {
+  background: #15803d;
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.28);
+  transform: translateY(-1px);
+}
+
+.payment-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 520px) {
+  .cart-summary {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .payment-btn {
+    width: 100%;
+  }
 }

@@ -3,10 +3,13 @@
 
   <ul class="genre-list">
     <li *ngFor="let genre of genres" class="genre-item">
-      <a [routerLink]="['/genre', genre.id]" class="genre-link">
+      <a
+        [routerLink]="['/genre', genre.id]"
+        class="genre-link"
+        routerLinkActive="active"
+      >
         {{ genre.name }}
       </a>
     </li>
   </ul>
 </div>
-

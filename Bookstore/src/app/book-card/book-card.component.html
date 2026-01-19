@@ -4,20 +4,36 @@
   <h3>{{ book.name }}</h3>
   <p class="author">{{ book.author }}</p>
 
+    <div class="price">
+    {{ book.price }} <span class="currency">RSD</span>
+  </div>
+
   <div class="rating">
-    <ng-container *ngFor="let s of starStates">
-      <span class="star" [ngClass]="s">★</span>
-    </ng-container>
+    <div class="stars">
+      <ng-container *ngFor="let s of starStates">
+        <span class="star" [ngClass]="s">★</span>
+      </ng-container>
+      <span class="rating-number">{{ book.rating || 0 }}/5</span>
+    </div>
 
-    <span class="rating-number">{{ book.rating || 0 }}/5</span>
+    <div class="price-inline">
+      {{ book.price }} <span class="currency">RSD</span>
+    </div>
+  </div>
 
+
+  <div class="card-footer">
     <button
-    *ngIf="(book?.amount ?? 0) > 0"
-    class="add-to-cart-btn"
-    (click)="addToCart(book); $event.stopPropagation()">
-    🛒
-  </button>
+      *ngIf="(book?.amount ?? 0) > 0"
+      class="add-to-cart-btn"
+      (click)="addToCart(book); $event.stopPropagation()">
+      <span class="cart-icon">🛒</span>
+      <span>Add to cart</span>
+    </button>
 
+    <div class="out-of-stock" *ngIf="(book?.amount ?? 0) <= 0">
+      Out of stock
+    </div>
   </div>
 </div>
 

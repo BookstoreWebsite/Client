@@ -24,6 +24,7 @@ export class BookPageComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id');
   isInRead = false;
   isInWished = false;
+  showAddedMessage = false;
 
   constructor(private route: ActivatedRoute,
     private bookService: BookService,
@@ -98,6 +99,8 @@ export class BookPageComponent implements OnInit {
     if(this.id != null){
       this.shoppingCartService.addToCart(this.tokenStorage.getUserId(), this.id).subscribe({
         next: (res: any) => {
+          this.showAddedMessage = true;
+          setTimeout(() => (this.showAddedMessage = false), 2000);
           console.log("Added to shopping cart!", res);
         },
         error: (err: any) => {

@@ -1,15 +1,39 @@
 <nav class="navbar">
   <div class="navbar-container">
-    <a class="navbar-brand" href="/home">Bookstore</a>
+    <a class="navbar-brand" routerLink="/home">Bookstore</a>
+
     <div class="navbar-actions">
-      <button *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)" class="navbar-button" routerLink="/genreForm">Add genre</button>
-      <button *ngIf="isLoggedIn && (currentUser?.type == 0)" class="navbar-button" routerLink="/addWorker">Add worker</button>
-      <button *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)" class="navbar-button" routerLink="/bookForm">Add book</button>
-      <button *ngIf="isLoggedIn && currentUser?.type == 0" class="navbar-button" routerLink="/reports">Reports</button>
-      <button *ngIf="isLoggedIn && currentUser?.type == 2" class="navbar-button" routerLink="/readerProfile">Profile</button>
-      <button *ngIf="isLoggedIn && currentUser?.type == 2" class="navbar-button" routerLink="/shoppingCart">Shopping Cart</button>
-      <button *ngIf="!isLoggedIn" class="navbar-button" routerLink="/login">Login</button>
-      <button *ngIf="isLoggedIn" class="navbar-button" (click)="logout()">Logout</button>
+      <button *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)"
+              class="navbar-button"
+              routerLink="/genreForm">Add genre</button>
+
+      <button *ngIf="isLoggedIn && (currentUser?.type == 0)"
+              class="navbar-button"
+              routerLink="/addWorker">Add worker</button>
+
+      <button *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)"
+              class="navbar-button"
+              routerLink="/bookForm">Add book</button>
+
+      <button *ngIf="isLoggedIn && currentUser?.type == 0"
+              class="navbar-button"
+              routerLink="/reports">Reports</button>
+
+      <button *ngIf="isLoggedIn && currentUser?.type == 2"
+              class="navbar-button"
+              routerLink="/readerProfile">Profile</button>
+
+      <button *ngIf="isLoggedIn && currentUser?.type == 2"
+              class="navbar-button"
+              routerLink="/shoppingCart">Shopping Cart</button>
+
+      <button *ngIf="!isLoggedIn"
+              class="navbar-button navbar-button--outline"
+              routerLink="/login">Login</button>
+
+      <button *ngIf="isLoggedIn"
+              class="navbar-button navbar-button--logout"
+              (click)="logout()">Logout</button>
     </div>
   </div>
 </nav>

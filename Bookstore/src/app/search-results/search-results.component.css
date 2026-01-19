@@ -1,0 +1,46 @@
+.book-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.search-toolbar {
+  max-width: 960px;
+  margin: 0 auto 14px;
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.search-clear {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.section-title {
+  max-width: 960px;
+  margin: 18px auto 10px;
+  padding: 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-text {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px 10px;
+  color: #555;
+  font-size: 14px;
+}

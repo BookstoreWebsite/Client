@@ -9,4 +9,6 @@ export interface Review {
   commentsLoaded?: boolean;
   commentsLoading?: boolean;
   commentsExpanded?: boolean;
+  username?: string;
+  profilePicture?: string;
 }

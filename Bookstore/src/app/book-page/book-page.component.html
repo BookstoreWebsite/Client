@@ -84,6 +84,14 @@
 
       <div class="review-list" *ngIf="(book.reviews?.length ?? 0) > 0">
         <div class="review" *ngFor="let r of displayedReviews; trackBy: trackByReviewId">
+            <div class="review-user">
+              <img
+                class="review-avatar"
+                [src]="r.profilePicture || 'assets/default-avatar.png'"
+                alt="profile picture"
+              />
+              <span class="review-username">{{ r.username }}</span>
+            </div>
           <div class="review-head">
             <div class="review-title">{{ r.title }}</div>
             <div class="review-rating">★ {{ r.rating }}</div>
@@ -132,4 +140,8 @@
       </button>
     </div>
   </ng-container>
+</div>
+
+<div class="toast top-center" *ngIf="showAddedMessage">
+  Book added to cart ✔
 </div>

@@ -1,7 +1,11 @@
 <app-navbar></app-navbar>
-<app-genre-list *ngIf="showGenreList"></app-genre-list>
 
-<div class="main-content">
-  <router-outlet></router-outlet>
+<div class="app-shell">
+  <aside class="sidebar" *ngIf="showGenreList">
+    <app-genre-list></app-genre-list>
+  </aside>
+
+  <main class="content" [class.no-sidebar]="!showGenreList">
+    <router-outlet></router-outlet>
+  </main>
 </div>
-

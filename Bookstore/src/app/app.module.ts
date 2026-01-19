@@ -31,6 +31,7 @@ import { GenreFormComponent } from './genre-form/genre-form.component';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
 import { FollowingComponent } from './following/following.component';
 import { FollowersComponent } from './followers/followers.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { FollowersComponent } from './followers/followers.component';
     GenreFormComponent,
     WorkerFormComponent,
     FollowingComponent,
-    FollowersComponent
+    FollowersComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
