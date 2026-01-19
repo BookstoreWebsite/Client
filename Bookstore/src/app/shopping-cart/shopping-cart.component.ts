@@ -50,4 +50,18 @@ goToPayment(): void {
 
   this.router.navigate(['/payment']);
 }
+
+clearCart(): void {
+  if (!this.tokenStorage.getUserId()) return;
+
+  this.shoppingCartService.clearShoppingCart(this.tokenStorage.getUserId()).subscribe({
+    next: () => {
+      this.loadCart();
+    },
+    error: () => {
+      this.errorMessage = 'Failed to clear shopping cart.';
+    }
+  });
+}
+
 }

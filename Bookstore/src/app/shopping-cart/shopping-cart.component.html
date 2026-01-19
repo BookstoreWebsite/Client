@@ -26,9 +26,21 @@
           Total: {{ totalPrice | number:'1.2-2' }}
         </div>
 
-        <button class="payment-btn" (click)="goToPayment()">
-          Go to checkout
-        </button>
+        <div class="cart-actions">
+          <button
+            class="clear-btn"
+            type="button"
+            (click)="clearCart()">
+            Clear cart
+          </button>
+
+          <button
+            class="payment-btn"
+            type="button"
+            (click)="goToPayment()">
+            Go to checkout
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -125,3 +125,27 @@
     width: 100%;
   }
 }
+
+.cart-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.clear-btn {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #991b1b;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.clear-btn:hover {
+  background: #fee2e2;
+  box-shadow: 0 10px 18px rgba(220, 38, 38, 0.18);
+  transform: translateY(-1px);
+}

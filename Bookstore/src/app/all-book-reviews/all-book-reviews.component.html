@@ -11,14 +11,22 @@
 
     <div class="review-list" *ngIf="allReviews.length > 0">
       <div class="review" *ngFor="let r of visibleReviews; trackBy: trackByReviewId">
+        <div class="review-user">
+          <img
+            class="review-avatar"
+            [src]="r.profilePicture || 'assets/default-avatar.png'"
+            alt="profile picture"
+          />
+          <span class="review-username">{{ r.username }}</span>
+        </div>
         <div class="review-head">
           <div class="review-title">{{ r.title }}</div>
           <div class="review-rating">★ {{ r.rating }}/5</div>
         </div>
         <div class="review-text">{{ r.text }}</div>
-        <button class="secondary-btn reply-btn" type="button" (click)="toggleReply(r.id)">
-        Reply
-        </button>
+        <div class="review-actions">
+          <button class="secondary-btn" type="button" (click)="toggleReply(r.id)">Reply</button>
+        </div>
         <div class="reply-form" *ngIf="isReplyOpen(r.id)">
         <textarea
             class="reply-textarea"

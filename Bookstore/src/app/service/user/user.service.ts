@@ -35,4 +35,8 @@ export class UserService {
     return this.http.get<Follow[]>(`${this.apiUrl}/getFollowers/${userId}`);
   }
 
+  editBio(userId: string, text: string) {
+    return this.http.patch<any>(`${this.apiUrl}/editBio/${userId}`, { text });
+  }
+
 }

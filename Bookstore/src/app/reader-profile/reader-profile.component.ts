@@ -36,6 +36,9 @@ export class ReaderProfileComponent implements OnInit {
   loadingPurchases = false;
   purchasesError: string | null = null;
 
+  editingBio = false;
+  bioDraft = '';
+
   constructor(
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
@@ -246,6 +249,38 @@ saveFavoriteGenres(): void {
 goToPurchaseDetails(purchaseId: string): void {
   if (!purchaseId) return;
   this.router.navigate(['/purchase', purchaseId]);
+}
+
+editBio() {
+  const text = window.prompt('Edit bio', this.user?.readerBio ?? '');
+  if (text === null || !this.user) return;
+
+  this.userService.editBio(this.user.id, text).subscribe({
+    next: (updated) => {
+      this.user.readerBio = updated.readerBio;
+    }
+  });
+}
+
+startEditBio() {
+  if (!this.user) return;
+  this.bioDraft = this.user.readerBio ?? '';
+  this.editingBio = true;
+}
+
+cancelEditBio() {
+  this.editingBio = false;
+}
+
+saveBio() {
+  if (!this.user) return;
+
+  this.userService.editBio(this.user.id, this.bioDraft).subscribe({
+    next: () => {
+      this.user.readerBio = this.bioDraft;
+      this.editingBio = false;
+    }
+  });
 }
 
 }

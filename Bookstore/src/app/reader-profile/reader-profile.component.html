@@ -105,9 +105,38 @@
     </button>
   </div>
 
-  <p class="bio" *ngIf="user.readerBio">
-    {{ user.readerBio }}
-  </p>
+  <div class="bio-block">
+    <div class="bio-head">
+      <span class="bio-label">Bio:</span>
+
+      <button
+        *ngIf="isMyProfile && !editingBio"
+        type="button"
+        class="bio-edit-btn"
+        (click)="startEditBio()">
+        ✏️
+      </button>
+    </div>
+
+    <p class="bio" *ngIf="!editingBio && user.readerBio">
+      {{ user.readerBio }}
+    </p>
+
+    <div *ngIf="editingBio" class="bio-edit">
+      <textarea
+        [(ngModel)]="bioDraft"
+        rows="4"
+        class="bio-textarea">
+      </textarea>
+
+      <div class="bio-actions">
+      <button class="primary-btn bio-save-btn" (click)="saveBio()">Save</button>
+      <button class="secondary-btn bio-cancel-btn" (click)="cancelEditBio()">Cancel</button>
+    </div>
+    </div>
+  </div>
+
+
 
 </div>
 

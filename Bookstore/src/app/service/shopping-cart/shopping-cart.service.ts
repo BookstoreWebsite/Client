@@ -39,8 +39,7 @@ export class ShoppingCartService {
   createPurchase(userId: string, address: any){
     return this.http.post<void>(`${this.apiUrl}/createPurchase/${userId}`, address)
   } 
-  clearShoppingCart(userId: string)
-  {
+  clearShoppingCart(userId: string){
     return this.http.delete<void>(`${this.apiUrl}/clearShoppingCart/${userId}`)
   }
   incrementItemQuantity(itemId: string){
