@@ -21,6 +21,7 @@ import { WorkerFormComponent } from './worker-form/worker-form.component';
 import { FollowingComponent } from './following/following.component';
 import { FollowersComponent } from './followers/followers.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'following/:id', component: FollowingComponent },
   { path: 'followers/:id', component: FollowersComponent },
   { path: 'search', component: SearchResultsComponent},
+  { path: 'purchase/:purchaseId', component: PurchaseDetailsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

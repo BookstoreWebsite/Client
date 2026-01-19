@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { CartItem } from '../../models/cart-item';
+import { Purchase } from 'src/app/models/purchase';
+import { PurchaseItem } from 'src/app/models/purchase-item';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +52,10 @@ export class ShoppingCartService {
   removeItem(itemId: string){
     return this.http.delete<void>(`${this.apiUrl}/removeItem/${itemId}`);
   }
-
+  getPurchaseHistory(userId: string){
+    return this.http.get<Purchase[]>(`${this.apiUrl}/getPurchaseHistory/${userId}`);
+  }
+  getPurchaseItems(purchaseId: string){
+    return this.http.get<PurchaseItem[]>(`${this.apiUrl}/getPurchaseItems/${purchaseId}`);
+  }
 }

@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
 import { AuthService } from '../service/auth/auth.service';
 import { TokenStorageService } from '../service/auth/token.service';
-import { UserService } from '../service/user/user.service'; // ✅ treba zbog follow poziva (ili tvoj follow servis)
+import { UserService } from '../service/user/user.service';
 import { GenreService } from '../service/genre/genre.service';
 import { Genre } from '../models/genre';
+import { ShoppingCartService } from '../service/shopping-cart/shopping-cart.service';
+import { Purchase } from '../models/purchase';
 
 @Component({
   selector: 'app-reader-profile',
@@ -29,13 +31,19 @@ export class ReaderProfileComponent implements OnInit {
 
   selectedGenreIds = new Set<string>();
 
+  showPurchaseHistory = false;
+  purchases: Purchase[] = [];
+  loadingPurchases = false;
+  purchasesError: string | null = null;
+
   constructor(
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private genreService: GenreService
+    private genreService: GenreService,
+    private shoppingCartService: ShoppingCartService
   ) {}
 
   ngOnInit(): void {
@@ -73,6 +81,40 @@ export class ReaderProfileComponent implements OnInit {
 
   get showFollowButton(): boolean {
     return !this.isMyProfile && !this.isFollowedByMe;
+  }
+
+  togglePurchaseHistory(): void {
+    if (!this.isMyProfile) return;
+
+    this.showPurchaseHistory = !this.showPurchaseHistory;
+
+    if (this.showPurchaseHistory && this.purchases.length === 0) {
+      this.loadPurchaseHistory();
+    }
+  }
+
+  private loadPurchaseHistory(): void {
+    this.loadingPurchases = true;
+    this.purchasesError = null;
+
+    this.shoppingCartService.getPurchaseHistory(this.viewerId).subscribe({
+      next: (items: Purchase[]) => {
+        const normalized = (items ?? []).map(p => ({
+          ...p,
+          dateTime: new Date(p.dateTime as any)
+        }));
+
+        normalized.sort((a, b) => b.dateTime.getTime() - a.dateTime.getTime());
+
+        this.purchases = normalized;
+        this.loadingPurchases = false;
+      },
+      error: (err) => {
+        console.error('Error loading purchase history', err);
+        this.purchasesError = 'Failed to load purchase history.';
+        this.loadingPurchases = false;
+      }
+    });
   }
 
   onFollow(): void {
@@ -200,4 +242,10 @@ saveFavoriteGenres(): void {
     }
   });
 }
+
+goToPurchaseDetails(purchaseId: string): void {
+  if (!purchaseId) return;
+  this.router.navigate(['/purchase', purchaseId]);
+}
+
 }

@@ -110,3 +110,35 @@
   </p>
 
 </div>
+
+<div>
+  <button
+    class="purchase-history-btn"
+    *ngIf="isMyProfile"
+    (click)="togglePurchaseHistory()">
+    {{ showPurchaseHistory ? 'Close purchases' : 'Purchase history' }}
+  </button>
+
+  <div class="purchase-panel" *ngIf="isMyProfile && showPurchaseHistory">
+    <div *ngIf="loadingPurchases">Loading purchases...</div>
+    <div *ngIf="purchasesError" class="error">{{ purchasesError }}</div>
+
+    <div *ngIf="!loadingPurchases && !purchasesError && purchases.length === 0" class="empty-state">
+      No purchases yet.
+    </div>
+
+    <div class="purchase-list" *ngIf="!loadingPurchases && purchases.length">
+      <div class="purchase-item clickable" *ngFor="let p of purchases" (click)="goToPurchaseDetails(p.id)">
+        <div class="purchase-left">
+          <div class="purchase-title">Order #{{ p.id }}</div>
+          <div class="purchase-date">{{ p.dateTime | date:'dd.MM.yyyy HH:mm' }}</div>
+        </div>
+
+        <div class="purchase-right">
+          <div class="purchase-total">{{ p.totalPrice | number:'1.2-2' }}</div>
+          <div class="purchase-currency">RSD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

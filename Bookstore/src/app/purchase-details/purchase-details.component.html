@@ -1,0 +1,39 @@
+<div class="details-card">
+  <div class="details-header">
+    <h2 class="details-title">Purchase Details</h2>
+    <div class="details-subtitle">Order #{{ purchaseId }}</div>
+  </div>
+
+  <div *ngIf="loading" class="panel">Loading items...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="panel" *ngIf="!loading && !error && items.length === 0">
+    No items found for this purchase.
+  </div>
+
+  <div class="items-panel" *ngIf="!loading && !error && items.length">
+    <div class="item-row" *ngFor="let it of items">
+        <img
+            class="item-image"
+            [src]="it.imageUrl || 'assets/book-placeholder.png'"
+            alt="Product image" />
+            
+      <div class="item-left">
+        <div class="item-title">{{ it.productName }}</div>
+        <div class="item-meta">Qty: {{ it.quantity }} · Unit: {{ it.unitPrice | number:'1.2-2' }} RSD</div>
+      </div>
+
+      <div class="item-right">
+        <div class="item-total">{{ it.totalPrice | number:'1.2-2' }}</div>
+        <div class="item-currency">RSD</div>
+      </div>
+    </div>
+
+    <div class="total-row">
+      <span>Total</span>
+      <span class="total-value">{{ grandTotal | number:'1.2-2' }} RSD</span>
+    </div>
+  </div>
+
+  <button class="back-btn" (click)="goBack()">Back</button>
+</div>
