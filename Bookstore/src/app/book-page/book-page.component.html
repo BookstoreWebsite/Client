@@ -13,7 +13,7 @@
           <button class="cart-btn" type="button" *ngIf="((book?.amount ?? 0) > 0) && isLoggedIn && currentUser?.type == 2" (click)="addToCart(); $event.stopPropagation()" title="Add to cart">
             🛒
           </button>
-          <button  *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)" [routerLink]="['/books', book.id, 'edit']">Update</button>
+          <button class="secondary-btn" *ngIf="isLoggedIn && (currentUser?.type == 0 || currentUser?.type == 1)" [routerLink]="['/books', book.id, 'edit']">Update</button>
         </div>
 
         <div class="author">by {{ book.author }}</div>
@@ -41,6 +41,23 @@
         <p class="description">
           {{ book.description }}
         </p>
+
+        <button
+          class="notify-btn"
+          type="button"
+          *ngIf="isLoggedIn && currentUser?.type == 2 && (book?.amount ?? 0) === 0"
+          (click)="toggleSubscription(); $event.stopPropagation()"
+          [disabled]="isTogglingSubscription"
+          [title]="isSubscribed ? 'Unsubscribe' : 'Subscribe'">
+
+          <span class="bell" [class.active]="isSubscribed">
+            {{ isSubscribed ? '🔕' : '🔔' }}
+          </span>
+
+          <span class="notify-text" *ngIf="!isSubscribed">
+            Notify me when the book is back in stock
+          </span>
+        </button>
 
         <button class="primary-btn" type="button" (click)="leaveReview()">
           Leave a review

@@ -1,4 +1,5 @@
 import { Genre } from "./genre";
+import { GenreDto } from "./genreDto";
 import { Review } from "./review";
 
 export interface Book {
@@ -11,6 +12,6 @@ export interface Book {
     price: number | null,
     amount: number | null,
     addTime: Date | null,
-    genres: Genre[] | null,
-    reviews: Review[] | null
+    genres: GenreDto[] | null,
+    reviews: Review[] | null,
 }

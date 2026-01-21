@@ -25,6 +25,8 @@ export class BookPageComponent implements OnInit {
   isInRead = false;
   isInWished = false;
   showAddedMessage = false;
+  isSubscribed = false;
+  isTogglingSubscription = false;
 
   constructor(private route: ActivatedRoute,
     private bookService: BookService,
@@ -275,14 +277,42 @@ removeFromRead(): void {
 private loadUserBookFlags(userId: string, bookId: string): void {
   forkJoin({
     inRead: this.bookService.isBookInRead(userId, bookId),
-    inWished: this.bookService.isBookInWished(userId, bookId)
+    inWished: this.bookService.isBookInWished(userId, bookId),
+    isSubscribed: this.bookService.isReaderSubscribed(userId, bookId)
   }).subscribe({
-    next: ({ inRead, inWished }) => {
+    next: ({ inRead, inWished, isSubscribed }) => {
       this.isInRead = !!inRead;
       this.isInWished = !!inWished;
+      this.isSubscribed = !!isSubscribed;
     },
     error: (err) => {
-      console.error('Failed to load read/wished flags', err);
+      console.error('Failed to load read/wished/subscription flags', err);
+    }
+  });
+}
+
+toggleSubscription(): void {
+  const userId = this.tokenStorage.getUserId();
+  const bookId = this.id;
+
+  if (!this.isLoggedIn || this.currentUser?.type !== 2) return;
+  if (!userId || !bookId) return;
+  if ((this.book?.amount ?? 0) !== 0) return;
+
+  this.isTogglingSubscription = true;
+
+  const req$ = this.isSubscribed
+    ? this.bookService.unsubscribe(userId, bookId)
+    : this.bookService.subscribe(userId, bookId);
+
+  req$.subscribe({
+    next: () => {
+      this.isSubscribed = !this.isSubscribed;
+      this.isTogglingSubscription = false;
+    },
+    error: (err) => {
+      console.error('Subscription toggle failed', err);
+      this.isTogglingSubscription = false;
     }
   });
 }

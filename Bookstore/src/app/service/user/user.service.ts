@@ -24,7 +24,7 @@ export class UserService {
   }
 
   unfollow(followerId: string, followingid: string) {
-    return this.http.delete<void>(`${this.apiUrl}/unfollow/${followerId}/${followingid}`, {});
+    return this.http.delete<void>(`${this.apiUrl}/unfollow/${followerId}/${followingid}`);
   }
 
   getFollowing(userId: string): Observable<Follow[]> {

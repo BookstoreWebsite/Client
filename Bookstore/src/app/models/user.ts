@@ -1,4 +1,5 @@
 import { Genre } from "./genre";
+import { GenreDto } from "./genreDto";
 import { Review } from "./review";
 
 export interface User {
@@ -15,7 +16,7 @@ export interface User {
     followerIds: string[] | null,
     followingIds: string[] | null,
     reviews: Review[] | null,
-    favoriteGenres: Genre[] | null,
+    favoriteGenres: GenreDto[] | null,
     wishedBooksCount: number,
     readBooksCount: number
 }
