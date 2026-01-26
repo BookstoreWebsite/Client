@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../service/book/book.service';
 import { AppReport } from '../models/report';
+import { ReportService } from '../service/report/report.service';
 
 @Component({
   selector: 'app-reports',
@@ -12,7 +13,7 @@ export class ReportsComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private reportService: ReportService) {}
 
   ngOnInit(): void {
     this.loadReports();
@@ -55,4 +56,23 @@ export class ReportsComponent implements OnInit {
   targetId(r: AppReport): string {
     return r.reviewId ?? r.commentId ?? '—';
   }
+
+  targetRoute(r: AppReport): any[] | null {
+  if (r.reviewId) return ['/reports/review', r.reviewId];
+  if (r.commentId) return ['/reports/comment', r.commentId, 'report', r.id];
+  return null;
+}
+
+removeReport(reportId: string): void {
+  this.reportService.removeReport(reportId).subscribe({
+    next: () => {
+      this.reports = this.reports.filter(r => r.id !== reportId);
+    },
+    error: (err) => {
+      console.error('Failed to remove report', err);
+      this.errorMessage = 'Failed to remove report.';
+    }
+  });
+}
+
 }

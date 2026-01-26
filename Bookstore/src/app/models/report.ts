@@ -5,5 +5,6 @@ export interface AppReport {
     userId?: string,
     reviewId?: string,
     commentId?: string,
-    isReviewReport?: string 
+    isReviewReport?: string ,
+    bookTitle?: string
 }

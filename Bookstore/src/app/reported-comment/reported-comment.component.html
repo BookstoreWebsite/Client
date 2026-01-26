@@ -1,0 +1,19 @@
+<div class="reported-comment-page">
+  <h2 class="title">Reported comment</h2>
+
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage && comment">
+    <app-comment
+      [comment]="comment"
+      [level]="0"
+      [showRemove]="true"
+      (remove)="onRemove($event)">
+    </app-comment>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && !comment" class="info">
+    Comment not found.
+  </div>
+</div>

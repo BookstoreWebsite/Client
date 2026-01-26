@@ -16,10 +16,23 @@
       </div>
 
       <div class="row">
+        <div class="label">On Book:</div>
+        <div class="value">{{ r.bookTitle }}</div>
+      </div>
+
+      <div class="row">
         <div class="label">Target:</div>
         <div class="value">
           {{ targetLabel(r) }} —
-          <span class="mono">{{ targetId(r) }}</span>
+          <ng-container *ngIf="targetRoute(r) as route; else noLink">
+            <a class="mono target-link" [routerLink]="route">
+              {{ targetId(r) }}
+            </a>
+          </ng-container>
+
+          <ng-template #noLink>
+            <span class="mono">{{ targetId(r) }}</span>
+          </ng-template>
         </div>
       </div>
 
@@ -28,6 +41,14 @@
       </div>
       <div class="text">
         {{ r.text }}
+      </div>
+      <div class="report-actions">
+        <button
+          class="danger-btn"
+          type="button"
+          (click)="removeReport(r.id)">
+          Remove
+        </button>
       </div>
     </div>
   </div>

@@ -89,4 +89,7 @@ export class BookService {
   isReaderSubscribed(userId: string, bookId: string){
     return this.http.get<boolean>(`${this.apiUrl}/isReaderSubscribed/${userId}/${bookId}`);
   }
+  getReviewById(reviewId: string): Observable<Review>{
+    return this.http.get<Review>(`${this.apiUrl}/getReviewById/${reviewId}`);
+  }
 }

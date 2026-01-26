@@ -1,0 +1,57 @@
+<div class="reported-review-page">
+  <h2 class="title">Reported review</h2>
+
+  <div *ngIf="isLoading" class="info">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage && review" class="review-list">
+    <div class="review">
+      <div class="review-user">
+        <img
+          class="review-avatar"
+          [src]="review.profilePicture || 'assets/default-avatar.png'"
+          alt="profile picture"
+        />
+        <span class="review-username">{{ review.username }}</span>
+      </div>
+
+      <div class="review-head">
+        <div class="review-title">{{ review.title }}</div>
+        <div class="review-rating">★ {{ review.rating }}</div>
+      </div>
+
+      <div class="review-text">{{ review.text }}</div>
+
+      <div class="review-actions">
+        <button class="secondary-btn" type="button" (click)="toggleReply()">
+          Reply
+        </button>
+
+        <button class="danger-btn" type="button" (click)="removeReview()">
+          Remove
+        </button>
+      </div>
+
+      <div class="reply-form" *ngIf="replyOpen">
+        <textarea
+          class="reply-textarea"
+          [(ngModel)]="replyText"
+          rows="3"
+          placeholder="Write a reply..."></textarea>
+
+        <div class="reply-actions">
+          <button class="primary-btn" type="button" (click)="submitReply()">
+            Submit
+          </button>
+          <button class="secondary-btn" type="button" (click)="cancelReply()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && !review" class="info">
+    Review not found.
+  </div>
+</div>

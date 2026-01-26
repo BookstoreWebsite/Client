@@ -33,6 +33,9 @@ import { FollowingComponent } from './following/following.component';
 import { FollowersComponent } from './followers/followers.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
+import { ReportedCommentComponent } from './reported-comment/reported-comment.component';
+import { ReportedReviewComponent } from './reported-review/reported-review.component';
+import { PurchaseCompleteComponent } from './purchase-complete/purchase-complete.component';
 
 
 @NgModule({
@@ -65,7 +68,10 @@ import { PurchaseDetailsComponent } from './purchase-details/purchase-details.co
     FollowingComponent,
     FollowersComponent,
     SearchResultsComponent,
-    PurchaseDetailsComponent
+    PurchaseDetailsComponent,
+    ReportedCommentComponent,
+    ReportedReviewComponent,
+    PurchaseCompleteComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,9 @@ import { FollowingComponent } from './following/following.component';
 import { FollowersComponent } from './followers/followers.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
+import { ReportedCommentComponent } from './reported-comment/reported-comment.component';
+import { ReportedReviewComponent } from './reported-review/reported-review.component';
+import { PurchaseCompleteComponent } from './purchase-complete/purchase-complete.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -48,6 +51,9 @@ const routes: Routes = [
   { path: 'followers/:id', component: FollowersComponent },
   { path: 'search', component: SearchResultsComponent},
   { path: 'purchase/:purchaseId', component: PurchaseDetailsComponent },
+  { path: 'reports/comment/:id/report/:reportId', component: ReportedCommentComponent },
+  { path: 'reports/review/:id', component: ReportedReviewComponent },
+  { path: 'purchase-complete', component: PurchaseCompleteComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }
 ];

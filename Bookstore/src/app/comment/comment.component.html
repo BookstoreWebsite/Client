@@ -23,6 +23,15 @@
       </button>
 
       <button
+        *ngIf="canRemove"
+        class="danger-btn"
+        type="button"
+        (click)="onRemoveClick()">
+        Remove
+      </button>
+
+      <button
+        *ngIf="canReport"
         class="secondary-btn"
         type="button"
         (click)="reportComment()">

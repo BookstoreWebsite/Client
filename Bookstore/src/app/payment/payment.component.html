@@ -1,6 +1,11 @@
 <div class="payment">
   <h2 class="title">Payment</h2>
 
+  <div class="loading-overlay" *ngIf="isPurchasing">
+    <div class="spinner" aria-label="Processing purchase"></div>
+    <div class="loading-text">Processing your order...</div>
+  </div>
+
   <div class="summary">
     <div class="label">Total price:</div>
     <div class="value">{{ totalPrice | number:'1.2-2' }}</div>
