@@ -19,7 +19,7 @@
 <section class="home-section">
   <h2 class="section-title">Newest Additions</h2>
   <div class="book-grid">
-    <app-book-card *ngFor="let b of mostRecentBooks" [book]="b"></app-book-card>
+    <app-book-card *ngFor="let b of mostRecentBooks" [book]="b" [currentUser] = "currentUser"></app-book-card>
   </div>
 </section>
 
@@ -28,7 +28,8 @@
 <div class="book-grid">
   <app-book-card
     *ngFor="let b of topRatedBooks"
-    [book]="b">
+    [book]="b"
+    [currentUser] = "currentUser">
   </app-book-card>
 </div>
 </section>
@@ -45,6 +46,6 @@
 </div>
 
 <div class="book-grid" *ngIf="!loadingRecommended && recommendedBooks.length > 0">
-  <app-book-card *ngFor="let b of recommendedBooks" [book]="b"></app-book-card>
+  <app-book-card *ngFor="let b of recommendedBooks" [book]="b" [currentUser] = "currentUser"></app-book-card>
 </div>
 </section>

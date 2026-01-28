@@ -26,6 +26,7 @@
         <div class="review-text">{{ r.text }}</div>
         <div class="review-actions">
           <button class="secondary-btn" type="button" (click)="toggleReply(r.id)">Reply</button>
+          <button class="secondary-btn" type="button" *ngIf="currentUser?.type == 2" (click)="reportReview(r.id)">Report</button>
         </div>
         <div class="reply-form" *ngIf="isReplyOpen(r.id)">
         <textarea

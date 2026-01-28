@@ -3,6 +3,8 @@ import { Book } from '../models/book';
 import { BookService } from '../service/book/book.service';
 import { TokenStorageService } from '../service/auth/token.service';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { AuthService } from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,23 +14,32 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   books: Book[] = [];
   searchTerm = '';
-
   recommendedBooks: Book[] = [];
   loadingRecommended = false;
+  currentUser: User | null = null;
+  isLoggedIn: boolean = false;
 
   constructor(
     private bookService: BookService,
     private tokenStorage: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.getBooks();
-
+    this.checkLoginStatus();
     const userId = this.tokenStorage.getUserId();
     if (userId) {
       this.getRecommendedBooks(userId);
     }
+  }
+
+  checkLoginStatus(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.currentUser = user;
+    })
   }
 
   getRecommendedBooks(userId: string): void {

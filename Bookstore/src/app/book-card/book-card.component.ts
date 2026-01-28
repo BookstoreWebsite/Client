@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Book } from '../models/book';
 import { ShoppingCartService } from '../service/shopping-cart/shopping-cart.service';
 import { TokenStorageService } from '../service/auth/token.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-book-card',
@@ -13,6 +14,7 @@ export class BookCardComponent {
   @Input() book!: Book;
   stars: any;
   showAddedMessage = false;
+  @Input() currentUser!: User | null;
 
   constructor(private shoppingCartService: ShoppingCartService, private tokenStorage: TokenStorageService){}
 

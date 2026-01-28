@@ -59,10 +59,10 @@
           </span>
         </button>
 
-        <button class="primary-btn" type="button" (click)="leaveReview()">
+        <button class="primary-btn" type="button" *ngIf="currentUser?.type == 2" (click)="leaveReview()">
           Leave a review
         </button>
-        <div class="book-actions">
+        <div class="book-actions" *ngIf="currentUser?.type == 2">
           <button
             class="secondary-btn"
             type="button"
@@ -119,7 +119,7 @@
               Reply
             </button>
 
-            <button class="secondary-btn" type="button" (click)="reportReview(r.id)">
+            <button class="secondary-btn" type="button" *ngIf="currentUser?.type == 2" (click)="reportReview(r.id)">
               Report
             </button>
           </div>

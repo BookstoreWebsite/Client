@@ -42,11 +42,6 @@ export class BookPageComponent implements OnInit {
       return;
     }
     this.loadBook(this.id);
-    const userId = this.tokenStorage.getUserId();
-    if (this.isLoggedIn && userId && this.id) {
-      this.loadUserBookFlags(userId, this.id);
-}
-
   }
 
   checkLoginStatus(): void {

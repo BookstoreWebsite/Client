@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../service/book/book.service';
 import { Review } from '../models/review';
 import { AppComment } from '../models/comment';
 import { TokenStorageService } from '../service/auth/token.service';
+import { AuthService } from '../service/auth/auth.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-all-book-reviews',
@@ -22,9 +24,17 @@ export class AllBookReviewsComponent implements OnInit {
   pageSize = 10;
   pageIndex = 0; 
 
-  constructor(private bookService: BookService, private route: ActivatedRoute, private tokenStorage: TokenStorageService) {}
+  isLoggedIn: boolean = false;
+  currentUser: User | null = null;
+
+  constructor(private bookService: BookService, 
+              private route: ActivatedRoute, 
+              private tokenStorage: TokenStorageService, 
+              private authService: AuthService, 
+              private router: Router) {}
 
   ngOnInit(): void {
+    this.checkLoginStatus();
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       this.errorMessage = 'Missing book id.';
@@ -32,6 +42,13 @@ export class AllBookReviewsComponent implements OnInit {
     }
     this.bookId = id;
     this.loadReviews(id);
+  }
+
+  checkLoginStatus(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.currentUser = user;
+    })
   }
 
   loadReviews(id: string): void {
@@ -148,5 +165,8 @@ private resetReplyUI(): void {
   this.replyDrafts = {};
 }
 
+reportReview(reviewId: string): void {
+  this.router.navigate(['/reportForm/review', reviewId]);
+}
 
 }
